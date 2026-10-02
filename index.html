@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garv Jain | Official Luxury Portfolio & Profile</title>
+  <meta name="description" content="Official personal luxury profile and portfolio of Garv Jain (गर्व जैन) - Class 9 student, tech enthusiast, and digital creator from India.">
+  <meta name="theme-color" content="#090b10">
+
+  <!-- Favicon - Royal Emblem (EST. 2012) -->
+  <link rel="icon" type="image/jpeg" href="assets/images/royal_logo.jpg?v=2012">
+  <link rel="shortcut icon" href="assets/images/royal_logo.jpg?v=2012">
+  <link rel="apple-touch-icon" href="assets/images/royal_logo.jpg?v=2012">
+  <meta property="og:image" content="assets/images/royal_logo.jpg?v=2012">
+
+  <!-- Google Fonts: Cursive (Great Vibes), Royal (Cinzel), Editorial (Playfair), Modern (Syne, Outfit, Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Great+Vibes&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="luxury-dark">
+  <!-- Three.js 3D WebGL Background Canvas -->
+  <canvas id="webglBgCanvas" class="webgl-canvas"></canvas>
+
+  <!-- Glowing Cursor Follower -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Ambient Light Orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <!-- Notification Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ================= HEADER & NAVIGATION ================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo" id="brandLogo">
+        <div class="logo-royal-crest-wrap">
+          <img src="assets/images/royal_logo.jpg?v=2012" alt="Garv Jain Royal Crest" class="logo-royal-crest-img">
+        </div>
+        <span class="logo-text">GARV JAIN<span class="cursive-subscript">signature</span></span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#hero" class="nav-link active" id="navLinkHome">Home</a>
+        <a href="#about" class="nav-link" id="navLinkAbout">About</a>
+        <a href="#id-store" class="nav-link nav-store-link" id="navLinkIdStore"><i class="fa-solid fa-fire text-rose"></i> ID Store</a>
+        <a href="#passions" class="nav-link" id="navLinkPassions">Passions</a>
+        <a href="#showcase" class="nav-link" id="navLinkShowcase">Showcase</a>
+        <a href="#projects" class="nav-link" id="navLinkProjects">Projects</a>
+        <a href="#contact" class="nav-link" id="navLinkContact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="mobile-toggle-btn" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Website Container -->
+  <main id="publicSite">
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-section" id="hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <img src="assets/images/royal_logo.jpg?v=2012" alt="Garv Jain Royal Crest" class="badge-mini-crest">
+            <span id="heroBadgeText">Class 9 Scholar &amp; Digital Creator • India 🇮🇳</span>
+          </div>
+
+          <h1 class="hero-title">
+            Hi, I'm <span class="gradient-gold cursive-signature" id="profileNameDisplay">Garv Jain</span>
+            <span class="hindi-name cursive-hindi">(गर्व जैन)</span>
+          </h1>
+
+          <div class="hero-cursive-quote">
+            <i class="fa-solid fa-feather-pointed gold-icon"></i>
+            <span>"Crafting vision with royal aesthetics, high-tier code &amp; digital mastery."</span>
+          </div>
+
+          <p class="hero-subtitle">
+            <span class="typing-prefix">I am a passionate </span>
+            <span class="typing-text" id="typingText"></span>
+            <span class="cursor-blink">|</span>
+          </p>
+
+          <p class="hero-bio" id="profileBioDisplay">
+            Welcome to my official digital sanctuary. Driven by technology, sleek aesthetics, and relentless curiosity. Exploring the realms of modern code, media creation, and digital innovation.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-luxury-gold" id="heroContactCta">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Get in Touch</span>
+            </a>
+            <a href="https://www.instagram.com/garv__x420/" target="_blank" rel="noopener noreferrer" class="btn btn-glass-instagram" id="heroInstagramCta">
+              <i class="fa-brands fa-instagram"></i>
+              <span>@garv__x420</span>
+            </a>
+            <a href="#showcase" class="btn btn-glass-secondary">
+              <i class="fa-solid fa-compass"></i>
+              <span>Explore Work</span>
+            </a>
+          </div>
+
+          <!-- Hero Metrics -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number">Class 9</div>
+              <div class="stat-label">Academic Grade</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-number" id="profileAgeDisplay">14</div>
+              <div class="stat-label">Years Old</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Creativity &amp; Passion</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual / 3D Interactive Display -->
+        <div class="hero-visual">
+          <div class="hero-3d-dual-stage">
+            <!-- 3D Avatar Card -->
+            <div class="luxury-card-wrapper" data-tilt-3d="true">
+              <div class="card-glow-bg"></div>
+              <div class="luxury-avatar-card" id="avatarTiltCard">
+                <div class="card-frame">
+                  <img src="assets/images/avatar.jpg?v=real" alt="Garv Jain Portrait" class="avatar-img" id="profileAvatarImg">
+                  <div class="avatar-gradient-overlay"></div>
+                  
+                  <!-- Floating Glass 3D Depth Tags -->
+                  <div class="floating-tag tag-top-right tag-3d-depth">
+                    <span class="live-pulse"></span> Active Creator
+                  </div>
+                  <div class="floating-tag tag-bottom-left tag-3d-depth">
+                    <i class="fa-solid fa-location-dot gold-icon"></i> <span id="tagLocationDisplay">Karod, Bhopal 🇮🇳</span>
+                  </div>
+                  <div class="floating-tag tag-bottom-right tag-3d-depth">
+                    <i class="fa-brands fa-instagram gold-icon"></i> @garv__x420
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating 3D Interactive Gyroscope Diamond Core Widget -->
+            <div class="hero-floating-3d-core" id="hero3DCoreWrapper" data-tilt-3d="true" title="Drag to rotate 3D jewel in 360°">
+              <div class="core-3d-inner">
+                <div class="core-3d-header">
+                  <span class="core-badge"><i class="fa-solid fa-gem gold-icon"></i> 3D VIRTUAL CORE</span>
+                  <span class="core-status"><span class="live-pulse"></span> 360° Interactive</span>
+                </div>
+                <div id="hero3DCore" class="hero-3d-box"></div>
+                <div class="core-drag-hint">
+                  <span class="drag-icon-pulse"><i class="fa-solid fa-arrows-spin"></i></span>
+                  <span>Click &amp; Drag in 3D Space</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT SECTION ================= -->
+    <section class="section about-section" id="about">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fa-solid fa-user-astronaut"></i> Biography</div>
+          <h2 class="section-title">Behind the <span class="gradient-gold">Vision</span></h2>
+          <p class="section-description">A glimpse into my journey, mindset, and creative universe.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card primary-card">
+            <div class="card-icon-wrap">
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <h3>Who is Garv Jain?</h3>
+            <p id="aboutStoryText">
+              I am Garv Jain (गर्व जैन), a focused 14-year-old student currently studying in Class 9 in India. I have a fierce passion for technology, premium visual aesthetics, modern digital media, and software innovation. While balancing academics with excellence, I continuously hone my skills in computer science, interactive web experiences, and creative content curation.
+            </p>
+            <div class="about-chips">
+              <span class="chip"><i class="fa-solid fa-graduation-cap"></i> Class 9 Student</span>
+              <span class="chip"><i class="fa-solid fa-code"></i> Coding Enthusiast</span>
+              <span class="chip"><i class="fa-solid fa-camera-retro"></i> Digital Aesthetician</span>
+              <span class="chip"><i class="fa-solid fa-bolt"></i> Future Tech Leader</span>
+            </div>
+          </div>
+
+          <div class="about-card feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+            <div class="feature-content">
+              <h4>Design &amp; Aesthetics</h4>
+              <p>Belief in minimalism, sleek dark-mode aesthetics, and creating experiences that leave a lasting impact.</p>
+            </div>
+          </div>
+
+          <div class="about-card feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
+            <div class="feature-content">
+              <h4>Tech &amp; Programming</h4>
+              <p>Exploring web development, algorithms, system architecture, and cutting-edge software solutions.</p>
+            </div>
+          </div>
+
+          <div class="about-card feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="feature-content">
+              <h4>Gaming &amp; Strategy</h4>
+              <p>Competitive mindset, strategic decision making, and an appreciation for high-performance hardware rigs.</p>
+            </div>
+          </div>
+
+          <div class="about-card feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-bullhorn"></i></div>
+            <div class="feature-content">
+              <h4>Creator Mindset</h4>
+              <p>Sharing inspiration on Instagram <a href="https://www.instagram.com/garv__x420/" target="_blank" class="gold-link">@garv__x420</a> with curated vibes and aesthetic photography.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PASSIONS & SKILLS ================= -->
+    <section class="section passions-section" id="passions">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fa-solid fa-fire"></i> Skills &amp; Capabilities</div>
+          <h2 class="section-title">What I <span class="gradient-gold">Excel At</span></h2>
+          <p class="section-description">Constantly expanding horizons across science, code, and creative media.</p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-head">
+              <span class="skill-title"><i class="fa-brands fa-html5 gold-icon"></i> Web Development (HTML / CSS / JS)</span>
+              <span class="skill-pct">92%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-fill" style="width: 92%;"></div>
+            </div>
+            <p class="skill-desc">Crafting responsive, responsive, interactive, and visually luxurious user interfaces.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-head">
+              <span class="skill-title"><i class="fa-solid fa-wand-magic-sparkles gold-icon"></i> Digital Media &amp; Visual Editing</span>
+              <span class="skill-pct">88%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-fill" style="width: 88%;"></div>
+            </div>
+            <p class="skill-desc">Color grading, reels storytelling, typography, and cinematic content curation.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-head">
+              <span class="skill-title"><i class="fa-solid fa-brain gold-icon"></i> Academic Mastery (Class 9 Science &amp; Math)</span>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-fill" style="width: 95%;"></div>
+            </div>
+            <p class="skill-desc">Strong foundation in logical reasoning, physics, mathematics, and analytical problem solving.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-head">
+              <span class="skill-title"><i class="fa-solid fa-microchip gold-icon"></i> Tech Hardware &amp; Modern Setups</span>
+              <span class="skill-pct">85%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-fill" style="width: 85%;"></div>
+            </div>
+            <p class="skill-desc">Hardware configurations, performance optimization, and ultra-wide battlestation setups.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ID STORE & GAMING MARKETPLACE ================= -->
+    <section class="section id-store-section" id="id-store">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fa-solid fa-gamepad"></i> Digital Assets &amp; ID Marketplace</div>
+          <h2 class="section-title">Verified <span class="gradient-gold cursive-title">Gaming &amp; Social IDs</span></h2>
+          <p class="section-description">Buy premium Instagram handles, Free Fire EVO accounts, and Clash of Clans max villages directly from Garv Jain with 100% verified safety &amp; instant transfer.</p>
+
+          <!-- Store Category Filters -->
+          <div class="store-filter-bar">
+            <button class="store-filter-btn active" data-filter="all">
+              <i class="fa-solid fa-layer-group"></i> All Inventory
+            </button>
+            <button class="store-filter-btn" data-filter="freefire">
+              <i class="fa-solid fa-fire text-rose"></i> Free Fire
+            </button>
+            <button class="store-filter-btn" data-filter="instagram">
+              <i class="fa-brands fa-instagram text-purple"></i> Instagram
+            </button>
+            <button class="store-filter-btn" data-filter="coc">
+              <i class="fa-solid fa-shield-halved text-cyan"></i> Clash of Clans
+            </button>
+            <button class="store-filter-btn" data-filter="bgmi">
+              <i class="fa-solid fa-crosshairs gold-icon"></i> BGMI Mobile
+            </button>
+            <button class="store-filter-btn" data-filter="gmail">
+              <i class="fa-solid fa-envelope text-cyan"></i> Premium Gmail IDs
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Store Grid (injected from app.js & editable in Admin panel) -->
+        <div class="id-store-grid" id="idStoreGrid">
+          <!-- Populated dynamically by JS -->
+        </div>
+
+        <!-- Guarantee & Handoff Trust Bar -->
+        <div class="store-guarantee-bar" data-tilt-3d="true">
+          <div class="guarantee-col">
+            <div class="g-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="g-text">
+              <h4>100% Verified Legit</h4>
+              <p>Direct owner handoff with zero risk and clear history.</p>
+            </div>
+          </div>
+          <div class="guarantee-col">
+            <div class="g-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="g-text">
+              <h4>Instant Transfer</h4>
+              <p>Credentials &amp; OTP handoff on WhatsApp within minutes.</p>
+            </div>
+          </div>
+          <div class="guarantee-col">
+            <div class="g-icon"><i class="fa-solid fa-phone-volume"></i></div>
+            <div class="g-text">
+              <h4>Direct Support</h4>
+              <p>Call or WhatsApp Garv Jain directly at +91 9691947952.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SHOWCASE / INSTAGRAM GALLERY ================= -->
+    <section class="section showcase-section" id="showcase">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fa-brands fa-instagram"></i> Instagram &amp; Visuals</div>
+          <h2 class="section-title">The <span class="gradient-gold">Showcase</span></h2>
+          <p class="section-description">A curated look into my lifestyle, interests, and creative aesthetics.</p>
+        </div>
+
+        <div class="showcase-grid" id="showcaseGalleryGrid">
+          <!-- Dynamic Items Injected by JS & Editable in Admin Panel -->
+        </div>
+
+        <div class="showcase-cta-bar">
+          <div class="cta-bar-text">
+            <h4>Follow My Journey on Instagram</h4>
+            <p>Catch daily stories, aesthetic posts, and creative drops on <strong class="gold-text">@garv__x420</strong></p>
+          </div>
+          <a href="https://www.instagram.com/garv__x420/" target="_blank" rel="noopener noreferrer" class="btn btn-luxury-gold">
+            <i class="fa-brands fa-instagram"></i> Visit @garv__x420
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS & MILESTONES ================= -->
+    <section class="section projects-section" id="projects">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fa-solid fa-layer-group"></i> Creations</div>
+          <h2 class="section-title">Featured <span class="gradient-gold">Projects</span></h2>
+          <p class="section-description">Interactive initiatives, tech experiments, and digital ventures.</p>
+        </div>
+
+        <div class="projects-grid" id="projectsListGrid">
+          <!-- Dynamic Project Cards Injected by JS & Editable via Admin Panel -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT FORM SECTION ================= -->
+    <section class="section contact-section" id="contact">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fa-solid fa-envelope-open-text"></i> Connect Directly</div>
+          <h2 class="section-title">Let's <span class="gradient-gold">Connect</span></h2>
+          <p class="section-description">Have a collaboration idea, tech discussion, or just want to say hi? Reach out anytime!</p>
+        </div>
+
+        <div class="contact-layout">
+          <!-- Contact Details Card -->
+          <div class="contact-info-card">
+            <h3>Direct Contact Channels</h3>
+            <p>I am always excited to connect with fellow creators, tech innovators, and visionaries.</p>
+
+            <div class="info-list">
+              <a href="mailto:garvjain1217@gmail.com" class="info-item" id="contactEmailLink">
+                <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="info-text">
+                  <span class="info-label">Email Address</span>
+                  <span class="info-value" id="displayContactEmail">garvjain1217@gmail.com</span>
+                </div>
+              </a>
+
+              <a href="tel:+919691947952" class="info-item" id="contactPhoneLink">
+                <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="info-text">
+                  <span class="info-label">Phone / WhatsApp</span>
+                  <span class="info-value" id="displayContactPhone">+91 9691947952</span>
+                </div>
+              </a>
+
+              <a href="https://www.instagram.com/garv__x420/" target="_blank" rel="noopener noreferrer" class="info-item" id="contactInstaLink">
+                <div class="info-icon"><i class="fa-brands fa-instagram"></i></div>
+                <div class="info-text">
+                  <span class="info-label">Instagram Profile</span>
+                  <span class="info-value">@garv__x420</span>
+                </div>
+              </a>
+
+              <div class="info-item static-info">
+                <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="info-text">
+                  <span class="info-label">Address / Location</span>
+                  <span class="info-value" id="displayContactAddress">7CX4+9C4, Shiv Nagar Colony, Housing Board Colony, Bhanpur, Karod, Bhopal, MP 462038</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick WhatsApp Action -->
+            <div class="whatsapp-box">
+              <a href="https://wa.me/919691947952?text=Hi%20Garv,%20I%20saw%20your%20luxury%20portfolio!" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <!-- Contact Us Interactive Form -->
+          <div class="contact-form-card" data-tilt-3d="true">
+            <form id="contactUsForm" class="contact-form">
+              <div class="form-header">
+                <h3>Send a Message</h3>
+                <p>Messages go directly to Garv's secure notification inbox.</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="senderName"><i class="fa-solid fa-user"></i> Your Name *</label>
+                  <input type="text" id="senderName" name="senderName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                  <label for="senderEmail"><i class="fa-solid fa-envelope"></i> Your Email *</label>
+                  <input type="email" id="senderEmail" name="senderEmail" placeholder="your.email@domain.com" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="senderPhone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+                  <input type="tel" id="senderPhone" name="senderPhone" placeholder="+91 00000 00000">
+                </div>
+                <div class="form-group">
+                  <label for="msgSubject"><i class="fa-solid fa-tag"></i> Subject *</label>
+                  <input type="text" id="msgSubject" name="msgSubject" placeholder="Collaboration, Tech, Project..." required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="senderMessage"><i class="fa-solid fa-comment-dots"></i> Your Message *</label>
+                <textarea id="senderMessage" name="senderMessage" rows="5" placeholder="Write your message here in detail..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-luxury-submit" id="contactSubmitBtn">
+                <span class="btn-text"><i class="fa-solid fa-paper-plane"></i> Send Message</span>
+                <span class="spinner-icon d-none"><i class="fa-solid fa-circle-notch fa-spin"></i> Sending...</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Google Maps Interactive Location Card -->
+        <div class="location-map-card mt-4" data-tilt-3d="true">
+          <div class="map-card-header">
+            <div class="map-header-left">
+              <span class="badge-pill"><i class="fa-solid fa-map-location-dot gold-icon"></i> GOOGLE MAPS LOCATION</span>
+              <h3>Karod &bull; Bhanpur, Bhopal, Madhya Pradesh</h3>
+              <p class="map-address-text" id="displayFullAddress">
+                <i class="fa-solid fa-location-pin gold-icon"></i> 7CX4+9C4, Shiv Nagar Colony, Housing Board Colony, Bhanpur, Karod, Bhopal, Madhya Pradesh 462038
+              </p>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=7CX4%2B9C4%2C+Shiv+Nagar+Colony%2C+Housing+Board+Colony%2C+Bhanpur%2C+Bhopal%2C+Madhya+Pradesh+462038" target="_blank" rel="noopener noreferrer" class="btn btn-luxury-gold btn-xs">
+              <i class="fa-solid fa-diamond-turn-right"></i> Open in Google Maps
+            </a>
+          </div>
+          <div class="map-frame-wrapper">
+            <iframe 
+              id="googleMapFrame"
+              title="Garv Jain Location - Karod Bhopal"
+              src="https://maps.google.com/maps?q=7CX4%2B9C4%2C%20Shiv%20Nagar%20Colony%2C%20Housing%20Board%20Colony%2C%20Bhanpur%2C%20Bhopal%2C%20Madhya%20Pradesh%20462038&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%" 
+              height="340" 
+              style="border:0; width:100%; border-radius: 14px; filter: invert(90%) hue-rotate(180deg) contrast(1.15);" 
+              allowfullscreen="" 
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-royal-crest-wrap">
+            <img src="assets/images/royal_logo.jpg?v=2012" alt="Garv Jain Royal Crest" class="footer-royal-logo">
+          </div>
+          <div class="footer-brand-text">
+            <span class="footer-brand-name">GARV JAIN</span>
+            <span class="footer-royal-tag">ROYAL HERITAGE &bull; EST. 2012</span>
+          </div>
+        </div>
+        <p>Class 9 Student &bull; Digital Creator &bull; Tech Innovator &bull; India 🇮🇳</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#passions">Skills</a>
+        <a href="#showcase">Gallery</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="currentYear"></span> <strong>Garv Jain</strong>. All rights reserved. Crafted with luxury aesthetics.</p>
+        <a href="#admin" class="footer-admin-link" id="footerAdminTrigger">
+          <i class="fa-solid fa-lock"></i> /admin
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= ADMIN AUTH MODAL ================= -->
+  <div class="modal-backdrop" id="adminAuthModal">
+    <div class="modal-dialog auth-dialog">
+      <button class="modal-close-btn" id="closeAdminAuthModal">&times;</button>
+      <div class="auth-icon-wrap royal-auth-crest-wrap">
+        <img src="assets/images/royal_logo.jpg?v=2012" alt="Garv Jain Royal Crest" class="auth-royal-logo">
+      </div>
+      <h3>Garv Jain Control Center</h3>
+      <p class="auth-sub">Enter owner credentials to access Analytics &amp; CMS Suite.</p>
+      
+      <form id="adminAuthForm" class="auth-pin-form">
+        <div class="auth-input-group">
+          <label for="adminIdInput"><i class="fa-solid fa-user-shield gold-icon"></i> Admin ID</label>
+          <input type="text" id="adminIdInput" placeholder="Enter ID (e.g. garv)" autocomplete="off" autofocus required>
+        </div>
+
+        <div class="auth-input-group mt-2">
+          <label for="adminPassInput"><i class="fa-solid fa-key gold-icon"></i> Password</label>
+          <div class="pin-input-wrap">
+            <input type="password" id="adminPassInput" placeholder="Enter Password (e.g. 2026)" autocomplete="off" required>
+            <button type="button" class="toggle-pin-vis" id="togglePinVisibility" title="Show/Hide Password">
+              <i class="fa-solid fa-eye" id="pinEyeIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <p class="pin-hint"><i class="fa-solid fa-lock"></i> Default Credentials: <strong>ID: garv</strong> &bull; <strong>Pass: 2026</strong></p>
+        
+        <div class="auth-actions">
+          <button type="submit" class="btn btn-luxury-gold w-100">
+            <i class="fa-solid fa-unlock-keyhole"></i> Log In to Dashboard
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= FULLSCREEN ADMIN DASHBOARD ================= -->
+  <div class="admin-panel-overlay" id="adminPanelOverlay">
+    <!-- Admin Topbar -->
+    <header class="admin-topbar">
+      <div class="admin-brand">
+        <div class="admin-royal-crest">
+          <img src="assets/images/royal_logo.jpg?v=2012" alt="Garv Jain Royal Crest" class="admin-crest-img">
+        </div>
+        <div>
+          <h2 class="admin-panel-title">Garv Jain Admin Suite <span class="badge-live">LIVE ANALYTICS &amp; CMS</span></h2>
+          <p class="admin-meta"><i class="fa-solid fa-signal text-success"></i> Telemetry active &bull; <span id="adminClock"></span></p>
+        </div>
+      </div>
+
+      <div class="admin-top-actions">
+        <button class="btn btn-outline-light" id="previewSiteBtn">
+          <i class="fa-solid fa-eye"></i> View Live Site
+        </button>
+        <button class="btn btn-outline-danger" id="exitAdminBtn">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Exit Admin
+        </button>
+      </div>
+    </header>
+
+    <!-- Admin Navigation Tabs -->
+    <div class="admin-nav-tabs">
+      <button class="admin-tab active" data-tab="tab-analytics" id="tabBtnAnalytics">
+        <i class="fa-solid fa-chart-line"></i> Visitor Analytics &amp; Location
+      </button>
+      <button class="admin-tab" data-tab="tab-id-store" id="tabBtnStore">
+        <i class="fa-solid fa-tags gold-icon"></i> Sell IDs &amp; Inventory <span class="badge-count bg-gold text-dark" id="storeInventoryBadge">0</span>
+      </button>
+      <button class="admin-tab" data-tab="tab-messages" id="tabBtnMessages">
+        <i class="fa-solid fa-inbox"></i> Contact Messages <span class="badge-count" id="unreadBadge">0</span>
+      </button>
+      <button class="admin-tab" data-tab="tab-cms" id="tabBtnCms">
+        <i class="fa-solid fa-pen-to-square"></i> Modify &amp; Publish Content
+      </button>
+    </div>
+
+    <!-- Admin Tab Content Body -->
+    <div class="admin-content-body">
+      <!-- ===== TAB 1: ANALYTICS & VISITORS ===== -->
+      <section class="admin-tab-pane active" id="tab-analytics">
+        <!-- KPI Cards Grid -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Total Page Views</span>
+              <div class="kpi-icon gold"><i class="fa-solid fa-eye"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiTotalViews">0</div>
+            <div class="kpi-growth"><i class="fa-solid fa-arrow-trend-up"></i> +<span id="kpiGrowthPct">18.4</span>% this week</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Unique Visitors</span>
+              <div class="kpi-icon cyan"><i class="fa-solid fa-users"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiUniqueVisitors">0</div>
+            <div class="kpi-growth text-cyan"><i class="fa-solid fa-user-check"></i> Verified client IDs</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Live Active Visitors</span>
+              <div class="kpi-icon green"><i class="fa-solid fa-satellite-dish"></i></div>
+            </div>
+            <div class="kpi-value text-green" id="kpiLiveVisitors">1</div>
+            <div class="kpi-growth text-green"><span class="live-pulse green"></span> Realtime polling active</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Inquiries &amp; Messages</span>
+              <div class="kpi-icon purple"><i class="fa-solid fa-envelope-circle-check"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiTotalMessages">0</div>
+            <div class="kpi-growth text-purple"><i class="fa-solid fa-bell"></i> Stored in secure DB</div>
+          </div>
+        </div>
+
+        <!-- Real-Time Visitor Telemetry & Location Breakdown -->
+        <div class="analytics-panels-row">
+          <!-- Current Session Info Card -->
+          <div class="dashboard-card location-card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-location-crosshairs gold-icon"></i> Current Visitor Telemetry &amp; Geo-Location</h3>
+              <button class="btn btn-xs btn-glass" id="refreshLocationBtn"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+            </div>
+            <div class="current-session-box" id="currentSessionDetails">
+              <div class="session-stat-line">
+                <span class="session-label"><i class="fa-solid fa-globe"></i> Detected Location:</span>
+                <span class="session-val highlight" id="visitorLocationVal">Detecting location...</span>
+              </div>
+              <div class="session-stat-line">
+                <span class="session-label"><i class="fa-solid fa-network-wired"></i> IP Address / Network:</span>
+                <span class="session-val" id="visitorIpVal">Loading IP...</span>
+              </div>
+              <div class="session-stat-line">
+                <span class="session-label"><i class="fa-solid fa-laptop"></i> Device &amp; Browser:</span>
+                <span class="session-val" id="visitorDeviceVal">Detecting client...</span>
+              </div>
+              <div class="session-stat-line">
+                <span class="session-label"><i class="fa-solid fa-display"></i> Screen Resolution:</span>
+                <span class="session-val" id="visitorScreenVal">Detecting...</span>
+              </div>
+              <div class="session-stat-line">
+                <span class="session-label"><i class="fa-solid fa-clock"></i> Timezone &amp; Local Time:</span>
+                <span class="session-val" id="visitorTimezoneVal">Detecting...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Device & Geographic Distribution -->
+          <div class="dashboard-card breakdown-card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-chart-pie gold-icon"></i> Platform &amp; Device Breakdown</h3>
+            </div>
+            <div class="breakdown-list">
+              <div class="breakdown-item">
+                <div class="b-meta"><span><i class="fa-solid fa-mobile-screen"></i> Mobile Devices</span><span id="pctMobile">55%</span></div>
+                <div class="b-track"><div class="b-bar bg-gold" style="width: 55%;"></div></div>
+              </div>
+              <div class="breakdown-item">
+                <div class="b-meta"><span><i class="fa-solid fa-desktop"></i> Desktop &amp; Laptops</span><span id="pctDesktop">40%</span></div>
+                <div class="b-track"><div class="b-bar bg-cyan" style="width: 40%;"></div></div>
+              </div>
+              <div class="breakdown-item">
+                <div class="b-meta"><span><i class="fa-solid fa-tablet-screen-button"></i> Tablets</span><span id="pctTablet">5%</span></div>
+                <div class="b-track"><div class="b-bar bg-purple" style="width: 5%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Visitor Log Table -->
+        <div class="dashboard-card full-table-card">
+          <div class="card-head">
+            <h3><i class="fa-solid fa-list-check gold-icon"></i> Recent Realtime Visitor Activity Stream</h3>
+            <button class="btn btn-xs btn-outline-danger" id="clearVisitorLogsBtn"><i class="fa-solid fa-trash-can"></i> Clear Logs</button>
+          </div>
+          <div class="table-responsive">
+            <table class="luxury-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Location (City, Country)</th>
+                  <th>Device / OS</th>
+                  <th>Browser</th>
+                  <th>Page Visited</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="visitorLogsTbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TAB 2: CONTACT MESSAGES INBOX ===== -->
+      <section class="admin-tab-pane" id="tab-messages">
+        <div class="dashboard-card full-table-card">
+          <div class="card-head">
+            <div>
+              <h3><i class="fa-solid fa-inbox gold-icon"></i> Inbound Contact Messages</h3>
+              <p class="card-subtitle">Inquiries and messages sent via the public website contact form.</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn btn-xs btn-glass" id="markAllReadBtn"><i class="fa-solid fa-envelope-circle-check"></i> Mark All as Read</button>
+              <button class="btn btn-xs btn-outline-danger" id="clearAllMessagesBtn"><i class="fa-solid fa-trash-can"></i> Clear All</button>
+            </div>
+          </div>
+
+          <div class="messages-container" id="messagesListContainer">
+            <!-- Messages cards injected here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TAB 3: CONTENT CMS & PUBLISH ===== -->
+      <section class="admin-tab-pane" id="tab-cms">
+        <div class="cms-grid">
+          <!-- Profile Quick Editor -->
+          <div class="dashboard-card cms-card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-user-pen gold-icon"></i> Modify Profile Details</h3>
+              <span class="badge-pill">Live Sync</span>
+            </div>
+            <form id="profileEditForm" class="cms-form">
+              <div class="form-group">
+                <label for="cmsName">Full Name</label>
+                <input type="text" id="cmsName" value="Garv Jain" required>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cmsEmail">Email Address</label>
+                  <input type="email" id="cmsEmail" value="garvjain1217@gmail.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="cmsPhone">Phone Number</label>
+                  <input type="tel" id="cmsPhone" value="+91 9691947952" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cmsClass">Grade / Class</label>
+                  <input type="text" id="cmsClass" value="Class 9" required>
+                </div>
+                <div class="form-group">
+                  <label for="cmsAge"><i class="fa-solid fa-cake-candles gold-icon"></i> Age (Years)</label>
+                  <input type="number" id="cmsAge" value="14" min="1" max="100" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cmsInstagram">Instagram Username</label>
+                  <input type="text" id="cmsInstagram" value="@garv__x420" required>
+                </div>
+                <div class="form-group">
+                  <label for="cmsBadgeText">Hero Badge Subtitle</label>
+                  <input type="text" id="cmsBadgeText" value="Class 9 Scholar &amp; Digital Creator • India 🇮🇳">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="cmsAddress"><i class="fa-solid fa-location-dot gold-icon"></i> Address / Google Maps Location</label>
+                <input type="text" id="cmsAddress" value="7CX4+9C4, Shiv Nagar Colony, Housing Board Colony, Bhanpur, Karod, Bhopal, Madhya Pradesh 462038" required>
+              </div>
+
+              <div class="form-group">
+                <label for="cmsBio">Hero Bio / Introduction</label>
+                <textarea id="cmsBio" rows="4">Welcome to my official digital sanctuary. Driven by technology, sleek aesthetics, and relentless curiosity. Exploring the realms of modern code, media creation, and digital innovation.</textarea>
+              </div>
+
+              <div class="form-actions-bar">
+                <button type="submit" class="btn btn-luxury-gold" id="saveProfileBtn">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Save &amp; Publish Profile Details
+                </button>
+                <button type="button" class="btn btn-glass" id="resetDefaultsBtn">
+                  <i class="fa-solid fa-rotate-left"></i> Reset Defaults
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Add & Publish New Item (Showcase or Project) -->
+          <div class="dashboard-card cms-card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-plus-circle gold-icon"></i> Add &amp; Publish New Card</h3>
+              <span class="badge-pill">Showcase / Project</span>
+            </div>
+            
+            <form id="addNewItemForm" class="cms-form">
+              <div class="form-group">
+                <label for="newItemType">Publish Target *</label>
+                <select id="newItemType">
+                  <option value="showcase">Lifestyle &amp; Visual Showcase (Gallery)</option>
+                  <option value="project">Featured Project / Venture</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="newItemTitle">Title *</label>
+                <input type="text" id="newItemTitle" placeholder="e.g. Cyberpunk Workspace, Next-Gen Mobile App" required>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="newItemCategory">Category / Tag *</label>
+                  <input type="text" id="newItemCategory" placeholder="e.g. Aesthetic, Coding, Photography" required>
+                </div>
+                <div class="form-group">
+                  <label for="newItemLink">External Link (optional)</label>
+                  <input type="url" id="newItemLink" placeholder="https://instagram.com/garv__x420">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="newItemImage">Image Source *</label>
+                <select id="newItemImageSelect">
+                  <option value="assets/images/insta1.jpg">Preset: Instagram Golden Hour City Skyline (@garv__x420)</option>
+                  <option value="assets/images/lifestyle.jpg">Preset: Luxury Supercar &amp; Modern Architecture</option>
+                  <option value="assets/images/setup.jpg">Preset: Ultra-Modern Workstation Battlestation</option>
+                  <option value="assets/images/avatar.jpg">Preset: Official Garv Jain Portrait</option>
+                </select>
+              </div>
+
+              <div class="form-group d-none" id="customUrlGroup">
+                <label for="newItemCustomUrl">Custom Image URL</label>
+                <input type="url" id="newItemCustomUrl" placeholder="https://images.unsplash.com/...">
+              </div>
+
+              <div class="form-group">
+                <label for="newItemDescription">Description *</label>
+                <textarea id="newItemDescription" rows="3" placeholder="Short description of this showcase or project..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-luxury-gold w-100" id="publishItemBtn">
+                <i class="fa-solid fa-plus"></i> Publish Card to Live Website
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Manage Existing Published Items Table -->
+        <div class="dashboard-card full-table-card mt-4">
+          <div class="card-head">
+            <h3><i class="fa-solid fa-table-cells-large gold-icon"></i> Manage Published Cards &amp; Gallery Items</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="luxury-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="cmsItemsTbody">
+                <!-- Injected by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TAB 4: SELL IDS & INVENTORY MANAGER ===== -->
+      <section class="admin-tab-pane" id="tab-id-store">
+        <!-- Store KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Total Listed Assets</span>
+              <div class="kpi-icon gold"><i class="fa-solid fa-gamepad"></i></div>
+            </div>
+            <div class="kpi-value" id="kpiStoreTotal">0</div>
+            <div class="kpi-growth text-green"><i class="fa-solid fa-check-double"></i> Live on store</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Active / Available</span>
+              <div class="kpi-icon green"><i class="fa-solid fa-circle-check"></i></div>
+            </div>
+            <div class="kpi-value text-green" id="kpiStoreAvailable">0</div>
+            <div class="kpi-growth text-green"><span class="live-pulse green"></span> Ready for purchase</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Sold Out IDs</span>
+              <div class="kpi-icon purple"><i class="fa-solid fa-handshake"></i></div>
+            </div>
+            <div class="kpi-value text-purple" id="kpiStoreSold">0</div>
+            <div class="kpi-growth text-purple"><i class="fa-solid fa-check"></i> Completed deals</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <span class="kpi-title">Total Inventory Value</span>
+              <div class="kpi-icon cyan"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            </div>
+            <div class="kpi-value text-cyan" id="kpiStoreValue">₹0</div>
+            <div class="kpi-growth text-cyan"><i class="fa-solid fa-arrow-trend-up"></i> Asset portfolio</div>
+          </div>
+        </div>
+
+        <div class="cms-grid">
+          <!-- Add New ID for Sale Form -->
+          <div class="dashboard-card cms-card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-plus-circle gold-icon"></i> List New ID for Sale</h3>
+              <span class="badge-pill bg-gold">Instant Publish</span>
+            </div>
+            
+            <form id="addStoreItemForm" class="cms-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="storeGameSelect"><i class="fa-solid fa-gamepad"></i> Platform / Game *</label>
+                  <select id="storeGameSelect" required>
+                    <option value="bgmi">BGMI Mobile (Glacier / X-Suit)</option>
+                    <option value="gmail">Premium Gmail / Google ID</option>
+                    <option value="freefire">Free Fire (FF)</option>
+                    <option value="instagram">Instagram Account</option>
+                    <option value="coc">Clash of Clans (COC)</option>
+                    <option value="other">Other Gaming Account</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="storePrice"><i class="fa-solid fa-indian-rupee-sign"></i> Price (in ₹) *</label>
+                  <input type="number" id="storePrice" placeholder="e.g. 2999" required min="100">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="storeTitle">Account Title / Headline *</label>
+                <input type="text" id="storeTitle" placeholder="e.g. BGMI M416 Glacier Max or Aged 2011 Gmail ID" required>
+              </div>
+
+              <div class="form-group">
+                <label for="storeSpecs">Key Specs &amp; Highlights *</label>
+                <input type="text" id="storeSpecs" placeholder="e.g. Glacier Max | 3 X-Suits | Ace Dom OR Aged 2011 | High Trust Score" required>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="storeLoginType">Login / Transfer Type</label>
+                  <input type="text" id="storeLoginType" placeholder="e.g. Twitter / Google Play / Full Gmail Access">
+                </div>
+                <div class="form-group">
+                  <label for="storeStatus">Availability Status</label>
+                  <select id="storeStatus">
+                    <option value="available">Available (Active for Sale)</option>
+                    <option value="reserved">Reserved (Deal in Progress)</option>
+                    <option value="sold">Sold Out</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="storeImageSelect">Account Banner Image *</label>
+                <select id="storeImageSelect">
+                  <option value="assets/images/bgmi.jpg">Preset: BGMI Glacier M416 &amp; Helmet</option>
+                  <option value="assets/images/gmail.jpg">Preset: Premium Gmail &amp; Cyber Shield</option>
+                  <option value="assets/images/freefire.jpg">Preset: Free Fire Elite &amp; EVO Weapons</option>
+                  <option value="assets/images/coc.jpg">Preset: Clash of Clans Max Town Hall</option>
+                  <option value="assets/images/insta1.jpg">Preset: Instagram Aesthetic City Skyline</option>
+                  <option value="assets/images/setup.jpg">Preset: Cyberpunk Gaming Station</option>
+                  <option value="custom">Custom Image URL</option>
+                </select>
+              </div>
+
+              <div class="form-group d-none" id="storeCustomUrlGroup">
+                <label for="storeCustomUrl">Custom Image URL</label>
+                <input type="url" id="storeCustomUrl" placeholder="https://...">
+              </div>
+
+              <div class="form-group">
+                <label for="storeDescription">Description &amp; Guarantees *</label>
+                <textarea id="storeDescription" rows="3" placeholder="Describe account perks, gun skins, trophies, and safety guarantees..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-luxury-gold w-100" id="publishStoreItemBtn">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Publish ID to Store
+              </button>
+            </form>
+          </div>
+
+          <!-- Quick Guidelines & Sales Pitch Card -->
+          <div class="dashboard-card cms-card">
+            <div class="card-head">
+              <h3><i class="fa-solid fa-shield-halved gold-icon"></i> Seller Verification &amp; Rules</h3>
+              <span class="badge-pill">Owner Notice</span>
+            </div>
+            <div class="store-rules-list">
+              <div class="rule-box">
+                <i class="fa-solid fa-lock gold-icon"></i>
+                <div>
+                  <h5>100% Secure Handoff</h5>
+                  <p>Never share login passwords before verifying payment receipt.</p>
+                </div>
+              </div>
+              <div class="rule-box">
+                <i class="fa-brands fa-whatsapp text-green"></i>
+                <div>
+                  <h5>Direct WhatsApp Negotiation</h5>
+                  <p>Buyers click "Buy on WhatsApp" which directs them straight to <strong>+91 9691947952</strong> with pre-filled ID info.</p>
+                </div>
+              </div>
+              <div class="rule-box">
+                <i class="fa-solid fa-receipt text-cyan"></i>
+                <div>
+                  <h5>Instant Status Updates</h5>
+                  <p>When an account is sold, change its status to <em>"Sold Out"</em> in the table below to mark it on the live site!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inventory List Table -->
+        <div class="dashboard-card full-table-card mt-4">
+          <div class="card-head">
+            <h3><i class="fa-solid fa-box-archive gold-icon"></i> Active Store Inventory &amp; Price Controls</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="luxury-table">
+              <thead>
+                <tr>
+                  <th>Platform</th>
+                  <th>Image</th>
+                  <th>Title &amp; Specs</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="storeInventoryTbody">
+                <!-- Injected dynamically by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 3D Engine Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
