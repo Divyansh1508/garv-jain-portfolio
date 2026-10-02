@@ -4,12 +4,12 @@
    ========================================================================== */
 
 :root {
-  /* Color Palette */
+  /* Color Palette - 50% Translucent Luxury Glassmorphism */
   --bg-deep: #07090e;
-  --bg-card: rgba(16, 20, 30, 0.75);
-  --bg-card-hover: rgba(22, 28, 44, 0.85);
-  --bg-glass: rgba(14, 18, 27, 0.65);
-  --bg-input: rgba(10, 13, 20, 0.8);
+  --bg-card: rgba(12, 16, 26, 0.50);
+  --bg-card-hover: rgba(20, 26, 42, 0.62);
+  --bg-glass: rgba(12, 16, 26, 0.50);
+  --bg-input: rgba(10, 14, 22, 0.50);
 
   /* Gold & Accent Tones */
   --gold-primary: #d4af37;
@@ -1057,7 +1057,8 @@ h1, h2, h3, h4, h5 {
 
 .about-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: 32px;
@@ -1075,7 +1076,9 @@ h1, h2, h3, h4, h5 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: linear-gradient(145deg, rgba(20, 25, 38, 0.8) 0%, rgba(10, 13, 20, 0.9) 100%);
+  background: linear-gradient(145deg, rgba(20, 25, 38, 0.50) 0%, rgba(10, 13, 20, 0.50) 100%);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(212, 175, 55, 0.25);
 }
 
@@ -1168,7 +1171,8 @@ h1, h2, h3, h4, h5 {
 
 .skill-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: 28px;
@@ -1233,7 +1237,8 @@ h1, h2, h3, h4, h5 {
 
 .showcase-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -1324,7 +1329,9 @@ h1, h2, h3, h4, h5 {
 }
 
 .showcase-cta-bar {
-  background: linear-gradient(135deg, rgba(20, 25, 38, 0.9) 0%, rgba(14, 18, 27, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(20, 25, 38, 0.50) 0%, rgba(14, 18, 27, 0.50) 100%);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
   padding: 28px 36px;
@@ -1352,7 +1359,8 @@ h1, h2, h3, h4, h5 {
 
 .project-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: 28px;
@@ -1362,6 +1370,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .project-card:hover {
+  background: var(--bg-card-hover);
   border-color: var(--border-gold);
   transform: translateY(-5px);
   box-shadow: var(--shadow-luxury);
@@ -1419,7 +1428,8 @@ h1, h2, h3, h4, h5 {
 
 .contact-info-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: 36px;
@@ -1497,7 +1507,8 @@ h1, h2, h3, h4, h5 {
 /* Contact Form Card */
 .contact-form-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: 36px;
@@ -1569,7 +1580,8 @@ h1, h2, h3, h4, h5 {
 /* ================= LOCATION & GOOGLE MAPS ================= */
 .location-map-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: 32px;
@@ -2084,6 +2096,8 @@ h1, h2, h3, h4, h5 {
 
 .kpi-card {
   background: var(--bg-card);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-md);
   padding: 22px;
@@ -2145,6 +2159,8 @@ h1, h2, h3, h4, h5 {
 
 .dashboard-card {
   background: var(--bg-card);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   padding: 26px;
@@ -2540,7 +2556,8 @@ h1, h2, h3, h4, h5 {
 
 .id-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -2721,7 +2738,9 @@ h1, h2, h3, h4, h5 {
 
 /* Trust Bar */
 .store-guarantee-bar {
-  background: linear-gradient(135deg, rgba(20, 25, 38, 0.9) 0%, rgba(14, 18, 27, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(20, 25, 38, 0.50) 0%, rgba(14, 18, 27, 0.50) 100%);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
   padding: 30px 36px;
