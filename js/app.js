@@ -185,6 +185,17 @@ function renderPublicProfile() {
     const span = instaCta.querySelector("span");
     if (span) span.textContent = profile.instagram;
   }
+
+  // Contact Us dynamic title & subtitle
+  const contactTitleEl = document.getElementById("contactSectionTitle");
+  if (contactTitleEl && profile.contactTitle) {
+    contactTitleEl.innerHTML = escapeHtml(profile.contactTitle);
+  }
+
+  const contactDescEl = document.getElementById("contactSectionDesc");
+  if (contactDescEl && profile.contactSubtitle) {
+    contactDescEl.textContent = profile.contactSubtitle;
+  }
 }
 
 // Render showcase & project cards

@@ -2871,37 +2871,92 @@ h1, h2, h3, h4, h5 {
 }
 
 @media (max-width: 768px) {
+  /* Fixed Mobile Header */
+  .site-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    padding: 12px 0 !important;
+    background: rgba(7, 9, 14, 0.96) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border-bottom: 1px solid var(--border-glass) !important;
+  }
+
+  .nav-container {
+    padding: 0 16px;
+  }
+
+  .brand-logo {
+    gap: 10px;
+  }
+
+  .logo-royal-crest-wrap {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logo-text {
+    font-size: 1.05rem;
+  }
+
+  .cursive-subscript {
+    font-size: 1.15rem;
+    margin-left: 4px;
+  }
+
   .nav-menu {
     position: fixed;
-    top: 70px;
+    top: 62px;
     left: 0;
     width: 100%;
-    background: rgba(9, 12, 19, 0.98);
-    backdrop-filter: blur(25px);
+    background: rgba(8, 10, 16, 0.98);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     flex-direction: column;
-    padding: 30px;
-    gap: 20px;
-    border-bottom: 1px solid var(--border-glass);
-    transform: translateY(-150%);
-    transition: transform 0.3s ease;
+    padding: 24px 20px 30px;
+    gap: 18px;
+    border-bottom: 1px solid var(--border-gold);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+    transform: translateY(-160%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 9998;
   }
+
   .nav-menu.open {
     transform: translateY(0);
   }
+
   .mobile-toggle-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--border-gold);
+    color: var(--gold-light);
+    font-size: 1.2rem;
+    cursor: pointer;
   }
+
   .admin-btn-text {
     display: none;
   }
+
   .hero-title {
     font-size: 2.5rem;
   }
+
   .hero-3d-dual-stage {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   .hero-floating-3d-core {
     position: relative;
     bottom: auto;
@@ -2910,6 +2965,7 @@ h1, h2, h3, h4, h5 {
     width: 220px;
     transform: translateZ(30px);
   }
+
   .about-grid,
   .skills-grid,
   .showcase-grid,
@@ -2919,37 +2975,136 @@ h1, h2, h3, h4, h5 {
   .contact-layout {
     grid-template-columns: 1fr;
   }
+
   .about-card.primary-card {
     grid-column: span 1;
   }
+
   .form-row {
     grid-template-columns: 1fr;
   }
+
   .showcase-cta-bar {
     flex-direction: column;
     text-align: center;
     gap: 20px;
   }
-  .kpi-grid {
-    grid-template-columns: repeat(2, 1fr);
+
+  /* Admin Panel Fullscreen Mobile Optimization */
+  .admin-panel-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    background: #080a10 !important;
   }
+
   .admin-topbar {
-    padding: 14px 16px;
+    padding: 12px 14px;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    background: rgba(12, 15, 24, 0.98);
   }
+
+  .admin-brand {
+    gap: 10px;
+    align-items: center;
+  }
+
+  .admin-royal-crest {
+    width: 40px;
+    height: 40px;
+  }
+
+  .admin-panel-title {
+    font-size: 1.05rem;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .badge-live {
+    font-size: 0.62rem;
+    padding: 2px 6px;
+  }
+
   .admin-top-actions {
     width: 100%;
-    justify-content: flex-end;
+    display: flex;
+    gap: 8px;
   }
+
+  .admin-top-actions .btn {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .admin-nav-tabs {
+    padding: 0 12px;
+    gap: 6px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid var(--border-glass);
+    scrollbar-width: none;
+  }
+
+  .admin-nav-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-tab {
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
   .admin-content-body {
-    padding: 20px 14px;
+    padding: 16px 12px;
+    max-width: 100%;
+    overflow-x: hidden;
   }
+
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .dashboard-card {
+    padding: 18px 14px;
+    border-radius: var(--radius-md);
+  }
+
+  .single-breakdown-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    margin-top: 10px;
+    border-radius: var(--radius-sm);
+  }
+
+  .luxury-table {
+    min-width: 580px;
+  }
+
   .id-pricing-row {
     flex-wrap: wrap;
     gap: 12px;
   }
+
   .btn-buy-wa {
     flex-grow: 1;
     justify-content: center;
@@ -3042,7 +3197,14 @@ h1, h2, h3, h4, h5 {
     gap: 18px;
   }
   .kpi-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .kpi-card {
+    padding: 12px 10px;
+  }
+  .kpi-value {
+    font-size: 1.45rem;
   }
   .modal-dialog {
     width: 95%;
@@ -3050,7 +3212,7 @@ h1, h2, h3, h4, h5 {
     padding: 24px 18px;
   }
   .admin-tab {
-    padding: 12px 14px;
-    font-size: 0.82rem;
+    padding: 10px 12px;
+    font-size: 0.78rem;
   }
 }

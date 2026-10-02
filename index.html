@@ -56,7 +56,7 @@
         <a href="#passions" class="nav-link" id="navLinkPassions">Passions</a>
         <a href="#showcase" class="nav-link" id="navLinkShowcase">Showcase</a>
         <a href="#projects" class="nav-link" id="navLinkProjects">Projects</a>
-        <a href="#contact" class="nav-link" id="navLinkContact">Contact</a>
+        <a href="#contact" class="nav-link" id="navLinkContact">Contact Us</a>
       </nav>
 
       <div class="nav-actions">
@@ -389,8 +389,8 @@
       <div class="section-container">
         <div class="section-header">
           <div class="section-badge"><i class="fa-solid fa-envelope-open-text"></i> Connect Directly</div>
-          <h2 class="section-title">Let's <span class="gradient-gold">Connect</span></h2>
-          <p class="section-description">Have a collaboration idea, tech discussion, or just want to say hi? Reach out anytime!</p>
+          <h2 class="section-title" id="contactSectionTitle">Contact <span class="gradient-gold">Us</span></h2>
+          <p class="section-description" id="contactSectionDesc">Have a collaboration idea, tech discussion, or just want to say hi? Reach out anytime!</p>
         </div>
 
         <div class="contact-layout">
@@ -537,7 +537,7 @@
         <a href="#passions">Skills</a>
         <a href="#showcase">Gallery</a>
         <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact">Contact Us</a>
       </div>
 
       <div class="footer-bottom">
@@ -666,40 +666,10 @@
           </div>
         </div>
 
-        <!-- Real-Time Visitor Telemetry & Location Breakdown -->
-        <div class="analytics-panels-row">
-          <!-- Current Session Info Card -->
-          <div class="dashboard-card location-card">
-            <div class="card-head">
-              <h3><i class="fa-solid fa-location-crosshairs gold-icon"></i> Current Visitor Telemetry &amp; Geo-Location</h3>
-              <button class="btn btn-xs btn-glass" id="refreshLocationBtn"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
-            </div>
-            <div class="current-session-box" id="currentSessionDetails">
-              <div class="session-stat-line">
-                <span class="session-label"><i class="fa-solid fa-globe"></i> Detected Location:</span>
-                <span class="session-val highlight" id="visitorLocationVal">Detecting location...</span>
-              </div>
-              <div class="session-stat-line">
-                <span class="session-label"><i class="fa-solid fa-network-wired"></i> IP Address / Network:</span>
-                <span class="session-val" id="visitorIpVal">Loading IP...</span>
-              </div>
-              <div class="session-stat-line">
-                <span class="session-label"><i class="fa-solid fa-laptop"></i> Device &amp; Browser:</span>
-                <span class="session-val" id="visitorDeviceVal">Detecting client...</span>
-              </div>
-              <div class="session-stat-line">
-                <span class="session-label"><i class="fa-solid fa-display"></i> Screen Resolution:</span>
-                <span class="session-val" id="visitorScreenVal">Detecting...</span>
-              </div>
-              <div class="session-stat-line">
-                <span class="session-label"><i class="fa-solid fa-clock"></i> Timezone &amp; Local Time:</span>
-                <span class="session-val" id="visitorTimezoneVal">Detecting...</span>
-              </div>
-            </div>
-          </div>
-
+        <!-- Geographic & Platform Breakdown -->
+        <div class="analytics-panels-row single-breakdown-row">
           <!-- Device & Geographic Distribution -->
-          <div class="dashboard-card breakdown-card">
+          <div class="dashboard-card breakdown-card" style="width: 100%;">
             <div class="card-head">
               <h3><i class="fa-solid fa-chart-pie gold-icon"></i> Platform &amp; Device Breakdown</h3>
             </div>
@@ -811,6 +781,17 @@
                 <div class="form-group">
                   <label for="cmsBadgeText">Hero Badge Subtitle</label>
                   <input type="text" id="cmsBadgeText" value="Class 9 Scholar &amp; Digital Creator • India 🇮🇳">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cmsContactTitle"><i class="fa-solid fa-heading gold-icon"></i> Contact Us Section Title</label>
+                  <input type="text" id="cmsContactTitle" value="Contact Us">
+                </div>
+                <div class="form-group">
+                  <label for="cmsContactSubtitle"><i class="fa-solid fa-message gold-icon"></i> Contact Us Subtitle</label>
+                  <input type="text" id="cmsContactSubtitle" value="Have a collaboration idea, tech discussion, or just want to say hi? Reach out anytime!">
                 </div>
               </div>
 
@@ -960,14 +941,16 @@
         </div>
 
         <div class="cms-grid">
-          <!-- Add New ID for Sale Form -->
+          <!-- Add / Edit ID for Sale Form -->
           <div class="dashboard-card cms-card">
             <div class="card-head">
-              <h3><i class="fa-solid fa-plus-circle gold-icon"></i> List New ID for Sale</h3>
-              <span class="badge-pill bg-gold">Instant Publish</span>
+              <h3 id="storeFormHeading"><i class="fa-solid fa-plus-circle gold-icon"></i> List New ID for Sale</h3>
+              <span class="badge-pill bg-gold" id="storeFormBadge">Instant Publish</span>
             </div>
             
             <form id="addStoreItemForm" class="cms-form">
+              <input type="hidden" id="storeEditItemId" value="">
+              
               <div class="form-row">
                 <div class="form-group">
                   <label for="storeGameSelect"><i class="fa-solid fa-gamepad"></i> Platform / Game *</label>
@@ -1034,9 +1017,14 @@
                 <textarea id="storeDescription" rows="3" placeholder="Describe account perks, gun skins, trophies, and safety guarantees..." required></textarea>
               </div>
 
-              <button type="submit" class="btn btn-luxury-gold w-100" id="publishStoreItemBtn">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Publish ID to Store
-              </button>
+              <div class="form-actions-bar" style="display: flex; gap: 10px; width: 100%;">
+                <button type="submit" class="btn btn-luxury-gold" style="flex: 2;" id="publishStoreItemBtn">
+                  <i class="fa-solid fa-cloud-arrow-up" id="publishStoreBtnIcon"></i> <span id="publishStoreBtnText">Publish ID to Store</span>
+                </button>
+                <button type="button" class="btn btn-glass d-none" style="flex: 1;" id="cancelStoreEditBtn" onclick="GarvAdmin.cancelEditStoreItem()">
+                  <i class="fa-solid fa-xmark"></i> Cancel
+                </button>
+              </div>
             </form>
           </div>
 

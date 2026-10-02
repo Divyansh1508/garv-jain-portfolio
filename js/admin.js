@@ -525,13 +525,16 @@ window.GarvAdmin = (function() {
         if (addrEl) currentProfile.address = addrEl.value.trim();
 
         currentProfile.instagram = document.getElementById("cmsInstagram").value.trim();
-        currentProfile.badgeText = document.getElementById("cmsBadgeText").value.trim();
-        currentProfile.bio = document.getElementById("cmsBio").value.trim();
+        const contactTitleEl = document.getElementById("cmsContactTitle");
+        if (contactTitleEl) currentProfile.contactTitle = contactTitleEl.value.trim();
+
+        const contactSubEl = document.getElementById("cmsContactSubtitle");
+        if (contactSubEl) currentProfile.contactSubtitle = contactSubEl.value.trim();
 
         localStorage.setItem("garv_profile_data", JSON.stringify(currentProfile));
         renderPublicProfile();
         logVisitorAction(`CMS: Updated Profile Info (Age: ${currentProfile.age}) for "${currentProfile.name}"`);
-        showToast("Profile changes saved & published live!", "success");
+        showToast("Profile & Contact details saved & published live!", "success");
       });
     }
 
@@ -630,6 +633,12 @@ window.GarvAdmin = (function() {
     if (cmsInstagram) cmsInstagram.value = profile.instagram || "@garv__x420";
     if (cmsBadgeText) cmsBadgeText.value = profile.badgeText || "Class 9 Scholar & Digital Creator • India 🇮🇳";
     if (cmsBio) cmsBio.value = profile.bio;
+
+    const cmsContactTitle = document.getElementById("cmsContactTitle");
+    if (cmsContactTitle) cmsContactTitle.value = profile.contactTitle || "Contact Us";
+
+    const cmsContactSubtitle = document.getElementById("cmsContactSubtitle");
+    if (cmsContactSubtitle) cmsContactSubtitle.value = profile.contactSubtitle || "Have a collaboration idea, tech discussion, or just want to say hi? Reach out anytime!";
   }
 
   function renderCmsCardsTable() {
@@ -696,6 +705,9 @@ window.GarvAdmin = (function() {
       storeForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        const editIdInput = document.getElementById("storeEditItemId");
+        const editId = editIdInput ? editIdInput.value.trim() : "";
+
         const category = document.getElementById("storeGameSelect").value;
         const price = parseInt(document.getElementById("storePrice").value) || 0;
         const title = document.getElementById("storeTitle").value.trim();
@@ -732,39 +744,165 @@ window.GarvAdmin = (function() {
 
         const specs = rawSpecs.split(/[|,]/).map(s => s.trim()).filter(Boolean);
 
-        const newItem = {
-          id: "id_" + Date.now(),
-          category,
-          badge,
-          icon,
-          title,
-          specs: specs.length > 0 ? specs : [rawSpecs],
-          price,
-          status,
-          image,
-          loginType,
-          description
-        };
-
         const existingItems = getStoredStoreItems();
-        existingItems.unshift(newItem);
-        localStorage.setItem("garv_store_items", JSON.stringify(existingItems));
 
-        // Re-render
+        if (editId) {
+          // --- MODIFY / EDIT EXISTING ITEM ---
+          const targetIndex = existingItems.findIndex(it => it.id === editId);
+          if (targetIndex !== -1) {
+            existingItems[targetIndex] = {
+              ...existingItems[targetIndex],
+              category,
+              badge,
+              icon,
+              title,
+              specs: specs.length > 0 ? specs : [rawSpecs],
+              price,
+              status,
+              image,
+              loginType,
+              description
+            };
+            localStorage.setItem("garv_store_items", JSON.stringify(existingItems));
+            cancelEditStoreItem();
+            logVisitorAction(`CMS: Modified ID Listing: "${title}" (₹${price.toLocaleString('en-IN')})`);
+            showToast(`"${title}" updated successfully!`, "success");
+          }
+        } else {
+          // --- CREATE NEW STORE ITEM ---
+          const newItem = {
+            id: "id_" + Date.now(),
+            category,
+            badge,
+            icon,
+            title,
+            specs: specs.length > 0 ? specs : [rawSpecs],
+            price,
+            status,
+            image,
+            loginType,
+            description
+          };
+          existingItems.unshift(newItem);
+          localStorage.setItem("garv_store_items", JSON.stringify(existingItems));
+          storeForm.reset();
+          if (customUrlGroup) customUrlGroup.classList.add("d-none");
+          logVisitorAction(`CMS: Listed New ID for Sale: "${title}" (₹${price.toLocaleString('en-IN')})`);
+          showToast(`"${title}" published to live ID Store!`, "success");
+        }
+
+        // Re-render UI & recalculate KPIs
         renderStoreInventoryTable();
         refreshStoreStats();
         if (typeof window.renderPublicStore === "function") {
           window.renderPublicStore();
         }
-
-        // Reset form
-        storeForm.reset();
-        if (customUrlGroup) customUrlGroup.classList.add("d-none");
-
-        logVisitorAction(`CMS: Listed New ID for Sale: "${title}" (₹${price.toLocaleString('en-IN')})`);
-        showToast(`"${title}" published to live ID Store!`, "success");
       });
     }
+  }
+
+  function editStoreItem(id) {
+    const items = getStoredStoreItems();
+    const item = items.find(it => it.id === id);
+    if (!item) return;
+
+    // Fill form
+    const editIdInput = document.getElementById("storeEditItemId");
+    if (editIdInput) editIdInput.value = item.id;
+
+    const gameSelect = document.getElementById("storeGameSelect");
+    if (gameSelect) gameSelect.value = item.category || "bgmi";
+
+    const priceInput = document.getElementById("storePrice");
+    if (priceInput) priceInput.value = item.price || 0;
+
+    const titleInput = document.getElementById("storeTitle");
+    if (titleInput) titleInput.value = item.title || "";
+
+    const specsInput = document.getElementById("storeSpecs");
+    if (specsInput) specsInput.value = Array.isArray(item.specs) ? item.specs.join(" | ") : (item.specs || "");
+
+    const loginInput = document.getElementById("storeLoginType");
+    if (loginInput) loginInput.value = item.loginType || "";
+
+    const statusSelect = document.getElementById("storeStatus");
+    if (statusSelect) statusSelect.value = item.status || "available";
+
+    const descInput = document.getElementById("storeDescription");
+    if (descInput) descInput.value = item.description || "";
+
+    // Image select
+    const imgSelect = document.getElementById("storeImageSelect");
+    const customUrlGroup = document.getElementById("storeCustomUrlGroup");
+    const customUrlInput = document.getElementById("storeCustomUrl");
+
+    if (imgSelect) {
+      const presetValues = ["assets/images/bgmi.jpg", "assets/images/gmail.jpg", "assets/images/freefire.jpg", "assets/images/coc.jpg", "assets/images/insta1.jpg", "assets/images/setup.jpg"];
+      if (presetValues.includes(item.image)) {
+        imgSelect.value = item.image;
+        if (customUrlGroup) customUrlGroup.classList.add("d-none");
+      } else {
+        imgSelect.value = "custom";
+        if (customUrlGroup) {
+          customUrlGroup.classList.remove("d-none");
+          if (customUrlInput) customUrlInput.value = item.image || "";
+        }
+      }
+    }
+
+    // Update UI headers & buttons to Edit Mode
+    const heading = document.getElementById("storeFormHeading");
+    if (heading) heading.innerHTML = `<i class="fa-solid fa-pen-to-square gold-icon"></i> Modify ID: "${escapeHtml(item.title)}"`;
+
+    const badge = document.getElementById("storeFormBadge");
+    if (badge) {
+      badge.textContent = "Editing Mode";
+      badge.className = "badge-pill bg-cyan";
+    }
+
+    const btnText = document.getElementById("publishStoreBtnText");
+    if (btnText) btnText.textContent = "Save Changes & Update ID";
+
+    const btnIcon = document.getElementById("publishStoreBtnIcon");
+    if (btnIcon) btnIcon.className = "fa-solid fa-check";
+
+    const cancelBtn = document.getElementById("cancelStoreEditBtn");
+    if (cancelBtn) cancelBtn.classList.remove("d-none");
+
+    // Scroll to form
+    const form = document.getElementById("addStoreItemForm");
+    if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    showToast(`Editing ID: "${item.title}"`, "info");
+  }
+
+  function cancelEditStoreItem() {
+    const editIdInput = document.getElementById("storeEditItemId");
+    if (editIdInput) editIdInput.value = "";
+
+    const form = document.getElementById("addStoreItemForm");
+    if (form) form.reset();
+
+    const customUrlGroup = document.getElementById("storeCustomUrlGroup");
+    if (customUrlGroup) customUrlGroup.classList.add("d-none");
+
+    const heading = document.getElementById("storeFormHeading");
+    if (heading) heading.innerHTML = `<i class="fa-solid fa-plus-circle gold-icon"></i> List New ID for Sale`;
+
+    const badge = document.getElementById("storeFormBadge");
+    if (badge) {
+      badge.textContent = "Instant Publish";
+      badge.className = "badge-pill bg-gold";
+    }
+
+    const btnText = document.getElementById("publishStoreBtnText");
+    if (btnText) btnText.textContent = "Publish ID to Store";
+
+    const btnIcon = document.getElementById("publishStoreBtnIcon");
+    if (btnIcon) btnIcon.className = "fa-solid fa-cloud-arrow-up";
+
+    const cancelBtn = document.getElementById("cancelStoreEditBtn");
+    if (cancelBtn) cancelBtn.classList.add("d-none");
   }
 
   function getStoredStoreItems() {
@@ -816,9 +954,12 @@ window.GarvAdmin = (function() {
             </span>
           </td>
           <td>
-            <div style="display: flex; gap: 6px; align-items: center;">
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+              <button class="btn btn-xs btn-glass" onclick="GarvAdmin.editStoreItem('${it.id}')" title="Modify ID listing details">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+              </button>
               <button class="btn btn-xs ${isSold ? 'btn-luxury-gold' : 'btn-glass'}" onclick="GarvAdmin.toggleStoreItemStatus('${it.id}')" title="Change status">
-                <i class="fa-solid ${isSold ? 'fa-rotate-left' : 'fa-check'}"></i> ${isSold ? 'Mark Available' : 'Mark Sold'}
+                <i class="fa-solid ${isSold ? 'fa-rotate-left' : 'fa-check'}"></i> ${isSold ? 'Available' : 'Sold'}
               </button>
               <button class="btn btn-xs btn-outline-danger" onclick="GarvAdmin.deleteStoreItem('${it.id}')" title="Delete listing permanently">
                 <i class="fa-solid fa-trash-can"></i> Delete
@@ -867,6 +1008,12 @@ window.GarvAdmin = (function() {
       items = items.filter(it => it.id !== id);
       localStorage.setItem("garv_store_items", JSON.stringify(items));
 
+      // If item was being edited, cancel edit
+      const editIdInput = document.getElementById("storeEditItemId");
+      if (editIdInput && editIdInput.value === id) {
+        cancelEditStoreItem();
+      }
+
       // 3. Re-render UI & recalculate KPIs
       renderStoreInventoryTable();
       refreshStoreStats();
@@ -907,6 +1054,8 @@ window.GarvAdmin = (function() {
     toggleMsgRead,
     deleteMsg,
     deleteCmsCard,
+    editStoreItem,
+    cancelEditStoreItem,
     toggleStoreItemStatus,
     deleteStoreItem,
     refreshStoreStats
