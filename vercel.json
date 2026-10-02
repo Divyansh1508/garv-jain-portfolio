@@ -2,18 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/admin",
-      "destination": "/index.html#admin",
-      "permanent": false
-    },
-    {
-      "source": "/admin/(.*)",
-      "destination": "/index.html#admin",
-      "permanent": false
-    }
-  ],
   "rewrites": [
     {
       "source": "/lead",
@@ -21,6 +9,22 @@
     },
     {
       "source": "/lead/(.*)",
+      "destination": "/lead.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/lead.html"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/lead.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/lead.html"
+    },
+    {
+      "source": "/dashboard/(.*)",
       "destination": "/lead.html"
     }
   ],

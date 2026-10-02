@@ -81,11 +81,12 @@ npx vercel --prod
 
 ---
 
-## 🔐 Admin Portal Access
+## 🔐 Admin Portal & Visitor Intelligence Access
 
-- URL: `/admin` (or `#admin`)
-- **Default ID**: `garv`
-- **Default Password**: `2026`
+Access the full command center & lead management suite:
+- **Direct URLs**: `/admin`, `/dashboard`, or `/lead` (Direct files: `lead.html`, `admin.html`, or `dashboard.html`)
+- **Default Operator ID**: `garv` (or `admin`)
+- **Default Password**: `2026` (or `admin123`)
 
 ---
 

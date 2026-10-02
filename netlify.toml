@@ -5,21 +5,28 @@
 
 [[redirects]]
   from = "/admin"
-  to = "/index.html#admin"
-  status = 302
-  force = true
+  to = "/lead.html"
+  status = 200
 
 [[redirects]]
   from = "/admin/"
-  to = "/index.html#admin"
-  status = 302
-  force = true
+  to = "/lead.html"
+  status = 200
 
 [[redirects]]
   from = "/admin/*"
-  to = "/index.html#admin"
-  status = 302
-  force = true
+  to = "/lead.html"
+  status = 200
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/lead.html"
+  status = 200
+
+[[redirects]]
+  from = "/dashboard/*"
+  to = "/lead.html"
+  status = 200
 
 [[redirects]]
   from = "/lead"

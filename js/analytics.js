@@ -427,7 +427,7 @@
     // Backwards compatibility alias
     ensureSeedDataIfEmpty() {
       this.purgeDemoData();
-    }    },
+    },
 
     // Public Getters for Dashboard
     getAllLeads() {

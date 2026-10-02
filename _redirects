@@ -1,7 +1,10 @@
-# Netlify Redirects for Garv Jain Official Luxury Portfolio & Admin Suite
-/admin        /index.html#admin    302!
-/admin/       /index.html#admin    302!
-/admin/*      /index.html#admin    302!
+# Netlify Redirects & Rewrites for Garv Jain Official Luxury Portfolio & Admin Suite
+/admin        /lead.html           200
+/admin/       /lead.html           200
+/admin/*      /lead.html           200
+/dashboard    /lead.html           200
+/dashboard/   /lead.html           200
+/dashboard/*  /lead.html           200
 /lead         /lead.html           200
 /lead/        /lead.html           200
 /lead/*       /lead.html           200
