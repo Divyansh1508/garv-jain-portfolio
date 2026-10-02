@@ -175,7 +175,8 @@ window.GarvAdmin = (function() {
   // ================= 2. VISITOR TELEMETRY & ANALYTICS =================
   function initVisitorTelemetry() {
     // 1. Total Page Views
-    let totalViews = parseInt(localStorage.getItem("garv_analytics_total_views") || "142");
+    let totalViews = parseInt(localStorage.getItem("garv_analytics_total_views") || "0");
+    if (totalViews === 142) totalViews = 0; // Clear old demo stats
     totalViews += 1;
     localStorage.setItem("garv_analytics_total_views", totalViews.toString());
 
@@ -187,7 +188,8 @@ window.GarvAdmin = (function() {
       visitorId = "usr_" + Math.random().toString(36).substring(2, 9);
       localStorage.setItem("garv_visitor_uuid", visitorId);
       
-      let uniqueCount = parseInt(localStorage.getItem("garv_analytics_unique_visitors") || "68");
+      let uniqueCount = parseInt(localStorage.getItem("garv_analytics_unique_visitors") || "0");
+      if (uniqueCount === 68) uniqueCount = 0; // Clear old demo stats
       uniqueCount += 1;
       localStorage.setItem("garv_analytics_unique_visitors", uniqueCount.toString());
     }
@@ -345,13 +347,14 @@ window.GarvAdmin = (function() {
   }
 
   function refreshDashboardStats() {
-    const totalViews = localStorage.getItem("garv_analytics_total_views") || "142";
-    const uniqueVisitors = localStorage.getItem("garv_analytics_unique_visitors") || "68";
+    let totalViews = localStorage.getItem("garv_analytics_total_views") || "1";
+    if (totalViews === "142") totalViews = "1";
+    let uniqueVisitors = localStorage.getItem("garv_analytics_unique_visitors") || "1";
+    if (uniqueVisitors === "68") uniqueVisitors = "1";
     const messages = JSON.parse(localStorage.getItem("garv_messages") || "[]");
     const unreadCount = messages.filter(m => !m.read).length;
 
-    // Live fluctuating active visitor simulation (1 - 4)
-    const activeVisitors = Math.floor(Math.random() * 3) + 2;
+    const activeVisitors = 1;
 
     const elTotal = document.getElementById("kpiTotalViews");
     const elUnique = document.getElementById("kpiUniqueVisitors");

@@ -502,26 +502,30 @@ h1, h2, h3, h4, h5 {
   gap: 14px;
 }
 
-.admin-portal-btn {
-  display: flex;
+.admin-portal-btn,
+.nav-admin-badge-btn {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 7px 16px;
   border-radius: var(--radius-xl);
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(212, 175, 55, 0.12);
   border: 1px solid var(--border-gold);
-  color: var(--gold-light);
+  color: #fce08f;
   font-family: var(--font-accent);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
+  text-decoration: none;
   cursor: pointer;
   transition: var(--transition);
 }
 
-.admin-portal-btn:hover {
-  background: var(--gold-primary);
+.admin-portal-btn:hover,
+.nav-admin-badge-btn:hover {
+  background: linear-gradient(135deg, #d4af37, #f39c12);
   color: #0c0e14;
   box-shadow: 0 0 20px var(--gold-glow);
+  transform: translateY(-1px);
 }
 
 .mobile-toggle-btn {

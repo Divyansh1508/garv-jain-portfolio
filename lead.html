@@ -1198,6 +1198,97 @@
       .topbar-content { flex-direction: column; align-items: flex-start; }
       .topbar-actions { width: 100%; justify-content: space-between; }
     }
+
+    /* ================= ID STORE MANAGER STYLES ================= */
+    .store-manager-grid {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1100px) {
+      .store-manager-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .store-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      position: sticky;
+      top: 90px;
+      transition: var(--transition);
+    }
+    .store-form-card.editing-pulse {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+    }
+    .store-form-group {
+      margin-bottom: 15px;
+    }
+    .store-form-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .store-form-input, .store-form-select, .store-form-textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      outline: none;
+      transition: var(--transition);
+      box-sizing: border-box;
+    }
+    .store-form-input:focus, .store-form-select:focus, .store-form-textarea:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+    }
+    .store-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 480px) {
+      .store-form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .store-thumb-preview {
+      width: 64px;
+      height: 44px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid var(--border-glass);
+    }
+    .spec-tag-chip {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(108, 99, 255, 0.12);
+      border: 1px solid rgba(108, 99, 255, 0.25);
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin: 2px 2px 0 0;
+      color: #c7d2fe;
+    }
+    .price-tag-gold {
+      font-family: var(--font-metrics);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fce08f;
+    }
   </style>
 </head>
 <body>
@@ -1206,7 +1297,7 @@
   <div class="auth-overlay" id="authGate">
     <div class="auth-modal" id="authBox">
       <div class="auth-badge-crest">
-        <img src="assets/images/logo.jpg" alt="Garv Jain Royal Crest">
+        <img src="assets/images/royal_logo.jpg?v=2012" alt="Garv Jain Royal Crest">
       </div>
       <h2 class="auth-title">Lead & Visitor Intelligence</h2>
       <p class="auth-subtitle">Garv Jain Official Command Suite • Protected Access</p>
@@ -1266,6 +1357,10 @@
             <i class="fa-solid fa-file-csv"></i>
             <span>Export CSV</span>
           </button>
+          <button class="btn-action" onclick="resetAllDemoData()" title="Purge any leftover demo records and start fresh" style="border-color: rgba(255, 101, 132, 0.4); color: var(--neon-coral);">
+            <i class="fa-solid fa-broom"></i>
+            <span>Clear Demo Data</span>
+          </button>
           <a href="index.html" class="btn-action" target="_blank">
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
             <span>View Site</span>
@@ -1289,6 +1384,11 @@
         <i class="fa-solid fa-chart-line"></i>
         <span>Visitor Traffic & Analytics</span>
         <span class="tab-badge" id="badgeTotalPageviews">0</span>
+      </button>
+      <button class="tab-btn" id="tabBtnStore" onclick="switchTab('store')">
+        <i class="fa-solid fa-tags" style="color: var(--gold-primary);"></i>
+        <span>ID Store & Inventory</span>
+        <span class="tab-badge" id="badgeStoreInventory" style="background: rgba(212, 175, 55, 0.25); color: #fce08f;">0</span>
       </button>
     </div>
 
@@ -1524,6 +1624,202 @@
       </div>
     </main>
 
+    <!-- ================= MODULE F: TAB 3 — ID STORE & DIGITAL ASSETS ================= -->
+    <main class="tab-pane" id="paneStore">
+      <!-- Store KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card" style="--card-accent: var(--gold-primary);">
+          <div class="kpi-header">
+            <span class="kpi-label">Total IDs in Inventory</span>
+            <div class="kpi-icon" style="color: var(--gold-primary); background: rgba(212, 175, 55, 0.15);"><i class="fa-solid fa-boxes-stacked"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiStoreTotal">0</div>
+          <div class="kpi-sub"><i class="fa-solid fa-layer-group"></i> Verified accounts cataloged</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: var(--neon-emerald);">
+          <div class="kpi-header">
+            <span class="kpi-label">Available for Sale</span>
+            <div class="kpi-icon" style="color: var(--neon-emerald); background: rgba(67, 233, 123, 0.15);"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiStoreAvailable" style="color: var(--neon-emerald);">0</div>
+          <div class="kpi-sub" style="color: var(--neon-emerald);"><i class="fa-solid fa-bolt"></i> Live &amp; purchase-ready</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: var(--neon-coral);">
+          <div class="kpi-header">
+            <span class="kpi-label">Accounts Sold Out</span>
+            <div class="kpi-icon" style="color: var(--neon-coral); background: rgba(255, 101, 132, 0.15);"><i class="fa-solid fa-lock"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiStoreSold" style="color: var(--neon-coral);">0</div>
+          <div class="kpi-sub"><i class="fa-solid fa-handshake"></i> Successfully handed over</div>
+        </div>
+
+        <div class="kpi-card" style="--card-accent: var(--neon-cyan);">
+          <div class="kpi-header">
+            <span class="kpi-label">Total Catalog Valuation</span>
+            <div class="kpi-icon" style="color: var(--neon-cyan); background: rgba(0, 242, 254, 0.15);"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiStoreValuation">₹0</div>
+          <div class="kpi-sub"><i class="fa-solid fa-chart-pie"></i> Combined inventory price</div>
+        </div>
+      </div>
+
+      <!-- Store Management Grid (Form on Left / Top, Table on Right / Bottom) -->
+      <div class="store-manager-grid">
+        <!-- Form: Add or Modify ID -->
+        <div class="store-form-card" id="storeFormContainer">
+          <div class="insight-head" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="kpi-icon" style="color: var(--gold-primary); background: rgba(212, 175, 55, 0.15); width: 34px; height: 34px;">
+                <i class="fa-solid fa-tags"></i>
+              </div>
+              <div>
+                <h3 id="storeFormHeading" style="margin: 0; font-size: 1.05rem; color: #fff;">List New ID for Sale</h3>
+                <span id="storeFormSub" style="font-size: 0.76rem; color: #9ca3af;">Instant publish to live website</span>
+              </div>
+            </div>
+            <span class="tab-badge" id="storeFormBadge" style="background: rgba(212, 175, 55, 0.2); color: #fce08f;">Create Mode</span>
+          </div>
+
+          <form id="leadStoreForm" onsubmit="handleLeadStoreSubmit(event)">
+            <input type="hidden" id="storeFormEditId" value="">
+
+            <div class="store-form-row">
+              <div class="store-form-group">
+                <label for="storeFormCategory"><i class="fa-solid fa-gamepad" style="color: var(--gold-primary);"></i> Platform / Game *</label>
+                <select id="storeFormCategory" class="store-form-select" required onchange="handleStoreCategoryChange()">
+                  <option value="freefire">Free Fire Max (FF)</option>
+                  <option value="instagram">Instagram Account</option>
+                  <option value="coc">Clash of Clans (COC)</option>
+                  <option value="bgmi">BGMI Mobile</option>
+                  <option value="gmail">Vintage Gmail / Google ID</option>
+                  <option value="other">Other Gaming Account</option>
+                </select>
+              </div>
+
+              <div class="store-form-group">
+                <label for="storeFormPrice"><i class="fa-solid fa-indian-rupee-sign" style="color: var(--gold-primary);"></i> Price (in ₹ INR) *</label>
+                <input type="number" id="storeFormPrice" class="store-form-input" placeholder="e.g. 3499" min="100" required>
+              </div>
+            </div>
+
+            <div class="store-form-group">
+              <label for="storeFormTitle"><i class="fa-solid fa-heading" style="color: var(--neon-indigo);"></i> Account Title / Headline *</label>
+              <input type="text" id="storeFormTitle" class="store-form-input" placeholder="e.g. Free Fire Level 74 • Sakura Bundle + 7 EVO Guns Max" required>
+            </div>
+
+            <div class="store-form-group">
+              <label for="storeFormSpecs"><i class="fa-solid fa-list-check" style="color: var(--neon-emerald);"></i> Key Specs &amp; Highlights (Pipe | or Comma separated) *</label>
+              <input type="text" id="storeFormSpecs" class="store-form-input" placeholder="e.g. Lvl 74 | Sakura &amp; Hip Hop | 7 EVO Guns Max | Master Rank" required>
+            </div>
+
+            <div class="store-form-row">
+              <div class="store-form-group">
+                <label for="storeFormStatus"><i class="fa-solid fa-toggle-on" style="color: var(--neon-cyan);"></i> Availability Status</label>
+                <select id="storeFormStatus" class="store-form-select">
+                  <option value="available">Available (Active for Sale)</option>
+                  <option value="reserved">Reserved (Deal in Progress)</option>
+                  <option value="sold">Sold Out</option>
+                </select>
+              </div>
+
+              <div class="store-form-group">
+                <label for="storeFormLoginType"><i class="fa-solid fa-shield-halved" style="color: var(--neon-amber);"></i> Transfer / Handover Method</label>
+                <input type="text" id="storeFormLoginType" class="store-form-input" placeholder="e.g. Google / FB Bound OR Supercell ID">
+              </div>
+            </div>
+
+            <div class="store-form-group">
+              <label for="storeFormImageSelect"><i class="fa-solid fa-image" style="color: var(--neon-coral);"></i> Account Thumbnail / Banner *</label>
+              <select id="storeFormImageSelect" class="store-form-select" onchange="handleStoreImagePresetChange()">
+                <option value="assets/images/freefire.jpg">Preset: Free Fire Elite &amp; EVO Weapons</option>
+                <option value="assets/images/insta1.jpg">Preset: Instagram Aesthetic City Skyline</option>
+                <option value="assets/images/coc.jpg">Preset: Clash of Clans Max Town Hall</option>
+                <option value="assets/images/bgmi.jpg">Preset: BGMI Glacier M416 &amp; Helmet</option>
+                <option value="assets/images/gmail.jpg">Preset: Premium Gmail &amp; Cyber Shield</option>
+                <option value="assets/images/setup.jpg">Preset: Cyberpunk Gaming Station</option>
+                <option value="custom">Custom Image URL...</option>
+              </select>
+            </div>
+
+            <div class="store-form-group" id="storeFormCustomImgGroup" style="display: none;">
+              <label for="storeFormCustomUrl"><i class="fa-solid fa-link"></i> Custom Image URL</label>
+              <input type="url" id="storeFormCustomUrl" class="store-form-input" placeholder="https://images.unsplash.com/...">
+            </div>
+
+            <div class="store-form-group">
+              <label for="storeFormDesc"><i class="fa-solid fa-align-left"></i> Account Description &amp; Guarantees *</label>
+              <textarea id="storeFormDesc" class="store-form-textarea" rows="3" placeholder="Describe account perks, gun skins, trophies, and safety guarantees..." required></textarea>
+            </div>
+
+            <!-- Form Action Buttons -->
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+              <button type="submit" class="btn-action btn-primary-action" id="btnStoreSubmit" style="flex: 2; justify-content: center; height: 44px; font-weight: 700; background: linear-gradient(135deg, #d4af37, #f39c12); color: #000; border: none; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);">
+                <i class="fa-solid fa-cloud-arrow-up" id="btnStoreSubmitIcon"></i>
+                <span id="btnStoreSubmitText">Publish ID to Store</span>
+              </button>
+              <button type="button" class="btn-action" id="btnStoreCancelEdit" onclick="cancelStoreEdit()" style="display: none; flex: 1; justify-content: center; height: 44px; border: 1px solid rgba(255,255,255,0.2); color: #fff;">
+                <i class="fa-solid fa-xmark"></i> Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Inventory List Table & Search Filter -->
+        <div class="table-card">
+          <div class="filter-toolbar" style="margin-bottom: 16px;">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" class="search-input" id="storeSearchInput" placeholder="Search by game, title, specs, or price..." oninput="handleStoreSearch()">
+            </div>
+
+            <div class="filters-group">
+              <select class="custom-select" id="storeCategoryFilter" onchange="handleStoreFilterChange()">
+                <option value="all">All Categories</option>
+                <option value="freefire">Free Fire Max</option>
+                <option value="instagram">Instagram Accounts</option>
+                <option value="coc">Clash of Clans</option>
+                <option value="bgmi">BGMI Mobile</option>
+                <option value="gmail">Vintage Gmail IDs</option>
+              </select>
+
+              <select class="custom-select" id="storeStatusFilter" onchange="handleStoreFilterChange()">
+                <option value="all">All Statuses</option>
+                <option value="available">Available Only</option>
+                <option value="sold">Sold Out</option>
+                <option value="reserved">Reserved</option>
+              </select>
+
+              <a href="index.html#id-store" target="_blank" class="btn-action" title="View Public Store Front on Live Website">
+                <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--gold-primary);"></i>
+                <span>Live Store</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Inventory Table -->
+          <div class="table-responsive" style="overflow-x: auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 130px;">Platform</th>
+                  <th style="width: 80px;">Image</th>
+                  <th>Title &amp; Highlights</th>
+                  <th style="width: 110px;">Price (INR)</th>
+                  <th style="width: 120px;">Status</th>
+                  <th style="width: 190px;">Admin Operations</th>
+                </tr>
+              </thead>
+              <tbody id="storeInventoryTbody">
+                <!-- Dynamically rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
   </div>
 
   <!-- ================= MODULE E: VISITOR DOSSIER & MAP MODAL ================= -->
@@ -1681,37 +1977,96 @@
       window.switchTab = function (tab) {
         const btnLeads = document.getElementById("tabBtnLeads");
         const btnTraffic = document.getElementById("tabBtnTraffic");
+        const btnStore = document.getElementById("tabBtnStore");
         const paneLeads = document.getElementById("paneLeads");
         const paneTraffic = document.getElementById("paneTraffic");
+        const paneStore = document.getElementById("paneStore");
+
+        btnLeads.classList.remove("active");
+        btnTraffic.classList.remove("active");
+        if (btnStore) btnStore.classList.remove("active");
+        paneLeads.classList.remove("active");
+        paneTraffic.classList.remove("active");
+        if (paneStore) paneStore.classList.remove("active");
 
         if (tab === "leads") {
           btnLeads.classList.add("active");
-          btnTraffic.classList.remove("active");
           paneLeads.classList.add("active");
-          paneTraffic.classList.remove("active");
           renderLeadsList();
-        } else {
-          btnLeads.classList.remove("active");
+        } else if (tab === "traffic") {
           btnTraffic.classList.add("active");
-          paneLeads.classList.remove("active");
           paneTraffic.classList.add("active");
           renderTrafficAnalytics();
+        } else if (tab === "store") {
+          if (btnStore) btnStore.classList.add("active");
+          if (paneStore) paneStore.classList.add("active");
+          renderStoreInventory();
         }
       };
 
       // 3. Initialize & Refresh
-      function initDashboard() {
-        if (window.FitscalezTracker && typeof window.FitscalezTracker.ensureSeedDataIfEmpty === "function") {
-          window.FitscalezTracker.ensureSeedDataIfEmpty();
-        }
-        renderLeadsList();
-        renderTrafficAnalytics();
+      function purgeAllDemoData() {
+        try {
+          const rawLeads = localStorage.getItem("fitscalez_leads");
+          if (rawLeads) {
+            const leads = JSON.parse(rawLeads);
+            const cleanLeads = leads.filter(l => l && l.id && !String(l.id).startsWith("lead-100"));
+            if (cleanLeads.length !== leads.length) {
+              localStorage.setItem("fitscalez_leads", JSON.stringify(cleanLeads));
+            }
+          }
+
+          const rawDevices = localStorage.getItem("fitscalez_devices");
+          if (rawDevices) {
+            const devices = JSON.parse(rawDevices);
+            const cleanDevices = {};
+            const mockPrefixes = ["dev-c71b4a2e", "dev-f89a21dc", "dev-e12c34d5", "dev-b34d56e7", "dev-a56e78f9", "dev-d78f90ab"];
+            let changed = false;
+            for (const [id, dev] of Object.entries(devices)) {
+              if (!mockPrefixes.some(pref => id.startsWith(pref))) {
+                cleanDevices[id] = dev;
+              } else {
+                changed = true;
+              }
+            }
+            if (changed) {
+              localStorage.setItem("fitscalez_devices", JSON.stringify(cleanDevices));
+            }
+          }
+        } catch (e) {}
       }
 
-      window.refreshDashboardData = function () {
+      function initDashboard() {
+        purgeAllDemoData();
         renderLeadsList();
         renderTrafficAnalytics();
-        showToast("Dashboard data synchronized with local memory", "success");
+        renderStoreInventory();
+
+        if (window.location.hash.toLowerCase() === "#store") {
+          switchTab("store");
+        }
+      }
+
+      window.resetAllDemoData = function () {
+        if (confirm("Are you sure you want to clear all leads, visitor logs, and demo records? This will leave your dashboard completely clean.")) {
+          localStorage.setItem("fitscalez_leads", JSON.stringify([]));
+          localStorage.setItem("fitscalez_devices", JSON.stringify({}));
+          localStorage.setItem("fitscalez_page_views", JSON.stringify([]));
+          localStorage.removeItem("garv_visitor_logs");
+          localStorage.setItem("garv_analytics_total_views", "1");
+          localStorage.setItem("garv_analytics_unique_visitors", "1");
+          renderLeadsList();
+          renderTrafficAnalytics();
+          showToast("All demo and activity data cleared successfully.", "info");
+        }
+      };
+
+      window.refreshDashboardData = function () {
+        purgeAllDemoData();
+        renderLeadsList();
+        renderTrafficAnalytics();
+        renderStoreInventory();
+        showToast("Dashboard synchronized with local storage", "success");
       };
 
       // 4. Render Leads & Inquiries
@@ -1774,8 +2129,13 @@
         if (filtered.length === 0) {
           container.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #9ca3af;">
-              <i class="fa-solid fa-inbox" style="font-size: 3rem; margin-bottom: 14px; opacity: 0.3;"></i>
-              <p style="font-size: 1.1rem; font-weight: 600;">No inquiries matching your current filter.</p>
+              <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(108, 99, 255, 0.1); border: 1px solid rgba(108, 99, 255, 0.25); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--neon-indigo); font-size: 1.5rem;">
+                <i class="fa-solid fa-inbox"></i>
+              </div>
+              <h3 style="color: #fff; font-size: 1.15rem; margin-bottom: 8px;">No Inquiries Yet</h3>
+              <p style="font-size: 0.9rem; max-width: 440px; margin: 0 auto; color: #9ca3af;">
+                Client inquiries submitted through the public Contact Us form will appear here in real-time with verified device telemetry and contact actions.
+              </p>
             </div>
           `;
           return;
@@ -1848,6 +2208,7 @@
             </div>
           `;
         }).join("");
+        }
       };
 
       window.changeLeadStatus = function (id, newStatus) {
@@ -1928,10 +2289,13 @@
         // Top city
         const cityCounts = {};
         devList.forEach(d => {
-          const c = d.city || "Bhopal";
-          cityCounts[c] = (cityCounts[c] || 0) + 1;
+          if (d.city) {
+            cityCounts[d.city] = (cityCounts[d.city] || 0) + 1;
+          }
         });
-        const topCity = Object.keys(cityCounts).sort((a, b) => cityCounts[b] - cityCounts[a])[0] || "Bhopal";
+        const topCity = Object.keys(cityCounts).length > 0
+          ? Object.keys(cityCounts).sort((a, b) => cityCounts[b] - cityCounts[a])[0]
+          : "None yet";
 
         document.getElementById("kpiTotalPageviews").textContent = totalViews;
         document.getElementById("badgeTotalPageviews").textContent = totalViews;
@@ -1946,10 +2310,9 @@
           else if (d.deviceType === "Tablet") tablet++;
           else desktop++;
         });
-        const totalDev = uniqueVisitors || 1;
-        const pctDesktop = Math.round((desktop / totalDev) * 100);
-        const pctMobile = Math.round((mobile / totalDev) * 100);
-        const pctTablet = Math.max(0, 100 - pctDesktop - pctMobile);
+        const pctDesktop = uniqueVisitors > 0 ? Math.round((desktop / uniqueVisitors) * 100) : 0;
+        const pctMobile = uniqueVisitors > 0 ? Math.round((mobile / uniqueVisitors) * 100) : 0;
+        const pctTablet = uniqueVisitors > 0 ? Math.max(0, 100 - pctDesktop - pctMobile) : 0;
 
         document.getElementById("barDesktop").style.width = pctDesktop + "%";
         document.getElementById("barMobile").style.width = pctMobile + "%";
@@ -1965,55 +2328,68 @@
           const p = pv.path || "/index.html";
           pathCounts[p] = (pathCounts[p] || 0) + 1;
         });
-        if (Object.keys(pathCounts).length === 0) {
-          pathCounts["/index.html"] = 28;
-          pathCounts["/index.html#id-store"] = 19;
-          pathCounts["/index.html#projects"] = 14;
-          pathCounts["/index.html#showcase"] = 9;
-        }
-
         const sortedPages = Object.entries(pathCounts).sort((a, b) => b[1] - a[1]);
         const maxPageViews = sortedPages[0] ? sortedPages[0][1] : 1;
-        document.getElementById("topPagesTbody").innerHTML = sortedPages.slice(0, 5).map(([path, count]) => `
-          <tr>
-            <td><code>${escapeHtml(path)}</code></td>
-            <td><strong>${count}</strong></td>
-            <td>
-              <div class="ranked-row-bar">
-                <div class="ranked-row-fill" style="width: ${Math.round((count / maxPageViews) * 100)}%;"></div>
-              </div>
-            </td>
-          </tr>
-        `).join("");
+        if (sortedPages.length === 0) {
+          document.getElementById("topPagesTbody").innerHTML = `<tr><td colspan="3" style="text-align: center; color: #9ca3af; padding: 24px 0;">No page views tracked yet. Live traffic will appear here.</td></tr>`;
+        } else {
+          document.getElementById("topPagesTbody").innerHTML = sortedPages.slice(0, 5).map(([path, count]) => `
+            <tr>
+              <td><code>${escapeHtml(path)}</code></td>
+              <td><strong>${count}</strong></td>
+              <td>
+                <div class="ranked-row-bar">
+                  <div class="ranked-row-fill" style="width: ${Math.round((count / maxPageViews) * 100)}%;"></div>
+                </div>
+              </td>
+            </tr>
+          `).join("");
+        }
 
         // Top Locations Table
         const locArr = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]);
-        document.getElementById("topLocationsTbody").innerHTML = locArr.slice(0, 5).map(([city, count]) => `
-          <tr>
-            <td><strong>${escapeHtml(city)}</strong></td>
-            <td>India 🇮🇳</td>
-            <td><span class="tab-badge" style="background: rgba(67, 233, 123, 0.2); color: #43e97b;">${count}</span></td>
-          </tr>
-        `).join("");
+        if (locArr.length === 0) {
+          document.getElementById("topLocationsTbody").innerHTML = `<tr><td colspan="3" style="text-align: center; color: #9ca3af; padding: 24px 0;">No visitor locations recorded yet.</td></tr>`;
+        } else {
+          document.getElementById("topLocationsTbody").innerHTML = locArr.slice(0, 5).map(([city, count]) => `
+            <tr>
+              <td><strong>${escapeHtml(city)}</strong></td>
+              <td>India 🇮🇳</td>
+              <td><span class="tab-badge" style="background: rgba(67, 233, 123, 0.2); color: #43e97b;">${count}</span></td>
+            </tr>
+          `).join("");
+        }
 
-        // Acquisition Referrers
-        const referrers = [
-          { name: "Direct / WhatsApp", type: "Direct", pct: "52%" },
-          { name: "Instagram @garv__x420", type: "Social", pct: "28%" },
-          { name: "Google Search", type: "Organic", pct: "14%" },
-          { name: "GitHub Repository", type: "Referral", pct: "6%" }
-        ];
-        document.getElementById("trafficSourcesTbody").innerHTML = referrers.map(r => `
-          <tr>
-            <td>${escapeHtml(r.name)}</td>
-            <td><span class="lead-device-pill">${r.type}</span></td>
-            <td><strong>${r.pct}</strong></td>
-          </tr>
-        `).join("");
+        // Acquisition Referrers (dynamic from real sessions)
+        const refMap = {};
+        devList.forEach(d => {
+          if (d.pageHistory) {
+            d.pageHistory.forEach(h => {
+              if (h.referrer) {
+                refMap[h.referrer] = (refMap[h.referrer] || 0) + 1;
+              }
+            });
+          }
+        });
+        const refEntries = Object.entries(refMap);
+        if (refEntries.length === 0) {
+          document.getElementById("trafficSourcesTbody").innerHTML = `<tr><td colspan="3" style="text-align: center; color: #9ca3af; padding: 24px 0;">No external referrers tracked yet. Direct visits & campaigns will appear here.</td></tr>`;
+        } else {
+          document.getElementById("trafficSourcesTbody").innerHTML = refEntries.map(([name, count]) => `
+            <tr>
+              <td>${escapeHtml(name)}</td>
+              <td><span class="lead-device-pill">Referral</span></td>
+              <td><strong>${count}</strong></td>
+            </tr>
+          `).join("");
+        }
 
         // Realtime Visitor Stream Feed
         const streamTbody = document.getElementById("visitorStreamTbody");
-        streamTbody.innerHTML = devList.map(dev => {
+        if (devList.length === 0) {
+          streamTbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #9ca3af; padding: 36px 0;"><i class="fa-solid fa-satellite-dish" style="font-size: 1.5rem; margin-bottom: 8px; display: block; opacity: 0.4;"></i>No active visitor streams yet. Real visitors will appear live.</td></tr>`;
+        } else {
+          streamTbody.innerHTML = devList.map(dev => {
           const isNew = (dev.visits || 1) <= 1;
           const lastActiveStr = formatTimeAgo(dev.lastSeen);
 
@@ -2177,6 +2553,463 @@
         if (o.includes("linux")) return "fa-linux";
         return "fa-laptop";
       }
+
+      // ================= 7. ID STORE & DIGITAL ASSETS MANAGEMENT =================
+      const DEFAULT_STORE_ITEMS = [
+        {
+          id: "id_freefire_01",
+          category: "freefire",
+          badge: "Free Fire Max",
+          icon: "fa-fire text-rose",
+          title: "Free Fire Level 74 • Sakura Bundle + 7 EVO Guns Max",
+          specs: ["Lvl 74", "Sakura & Hip Hop", "7 EVO Guns Max", "Master Rank"],
+          price: 3499,
+          status: "available",
+          image: "assets/images/freefire.jpg",
+          loginType: "Google / FB Bound",
+          description: "Ultra-rare collector account with Sakura bundle, 7 Max EVO guns (AK, MP40, M1014), exclusive emotes, and safe transfer guarantee."
+        },
+        {
+          id: "id_insta_01",
+          category: "instagram",
+          badge: "Instagram Account",
+          icon: "fa-brands fa-instagram text-purple",
+          title: "Aesthetic Luxury Lifestyle Niche • 18.5K Followers",
+          specs: ["18.5K Followers", "9.2% Engagement", "Clean History", "OGE Included"],
+          price: 2199,
+          status: "available",
+          image: "assets/images/insta1.jpg",
+          loginType: "Original Email Handover",
+          description: "High-engagement aesthetic photography and reels account. Ready for monetization, sponsorships, or personal rebranding."
+        },
+        {
+          id: "id_coc_01",
+          category: "coc",
+          badge: "Clash of Clans",
+          icon: "fa-shield-halved text-cyan",
+          title: "Town Hall 16 Near Max • Level 240+ with 6500 Gems",
+          specs: ["TH16", "Heroes 90/90/65/40", "6,500+ Gems", "6 Builders"],
+          price: 4499,
+          status: "available",
+          image: "assets/images/coc.jpg",
+          loginType: "Supercell ID Direct Transfer",
+          description: "Max defense, high-level heroes, champion league war stars, and free name change available. Instant Supercell ID email handover."
+        },
+        {
+          id: "id_bgmi_01",
+          category: "bgmi",
+          badge: "BGMI Mobile",
+          icon: "fa-crosshairs gold-icon",
+          title: "BGMI Glacier M416 Max (Lvl 7) • 3 X-Suits • Ace Dominator",
+          specs: ["Glacier M416 Max", "Pharaoh X-Suit", "Mythic Fashion", "KD 5.2 • Ace Dom"],
+          price: 5999,
+          status: "available",
+          image: "assets/images/bgmi.jpg",
+          loginType: "Twitter / Play Games Handover",
+          description: "Elite competitive BGMI account with full Glacier kill message, on-hit effect, crate loot box, and high tier lobby skins."
+        },
+        {
+          id: "id_gmail_01",
+          category: "gmail",
+          badge: "Vintage Gmail",
+          icon: "fa-envelope gold-icon",
+          title: "Vintage 2011 Aged Gmail ID • High Trust Score • Clean History",
+          specs: ["Aged 2011 Account", "Zero Strikes", "OG Security Setup", "Google Play Tier"],
+          price: 1499,
+          status: "available",
+          image: "assets/images/gmail.jpg",
+          loginType: "Full Email & Recovery Number Handover",
+          description: "15+ years vintage aged Gmail account. Perfect for developers, high deliverability marketing, AdSense, or premium personal handle."
+        }
+      ];
+
+      function getStoredStoreItems() {
+        const deletedIds = JSON.parse(localStorage.getItem("garv_deleted_store_ids") || "[]");
+        const blacklist = new Set([...deletedIds, "id_bgmi_02", "id_gmail_02"]);
+
+        const saved = localStorage.getItem("garv_store_items");
+        if (!saved) {
+          const initial = DEFAULT_STORE_ITEMS.filter(it => !blacklist.has(it.id));
+          localStorage.setItem("garv_store_items", JSON.stringify(initial));
+          return initial;
+        }
+        try {
+          let list = JSON.parse(saved);
+          list = list.filter(it => !blacklist.has(it.id));
+
+          DEFAULT_STORE_ITEMS.forEach(def => {
+            if (blacklist.has(def.id)) return;
+            const existing = list.find(it => it.id === def.id);
+            if (!existing) {
+              list.push(def);
+            }
+          });
+
+          localStorage.setItem("garv_store_items", JSON.stringify(list));
+          return list;
+        } catch (e) {
+          return DEFAULT_STORE_ITEMS.filter(it => !blacklist.has(it.id));
+        }
+      }
+
+      function saveStoredStoreItems(items) {
+        localStorage.setItem("garv_store_items", JSON.stringify(items));
+      }
+
+      window.renderStoreInventory = function () {
+        const tbody = document.getElementById("storeInventoryTbody");
+        if (!tbody) return;
+
+        const items = getStoredStoreItems();
+        const search = (document.getElementById("storeSearchInput")?.value || "").toLowerCase().trim();
+        const categoryFilter = document.getElementById("storeCategoryFilter")?.value || "all";
+        const statusFilter = document.getElementById("storeStatusFilter")?.value || "all";
+
+        // KPI Calculations
+        const total = items.length;
+        const available = items.filter(it => it.status === "available").length;
+        const sold = items.filter(it => it.status === "sold").length;
+        const totalVal = items.reduce((sum, it) => sum + (Number(it.price) || 0), 0);
+
+        const elTotal = document.getElementById("kpiStoreTotal");
+        const elAvailable = document.getElementById("kpiStoreAvailable");
+        const elSold = document.getElementById("kpiStoreSold");
+        const elVal = document.getElementById("kpiStoreValuation");
+        const badge = document.getElementById("badgeStoreInventory");
+
+        if (elTotal) elTotal.textContent = total;
+        if (elAvailable) elAvailable.textContent = available;
+        if (elSold) elSold.textContent = sold;
+        if (elVal) elVal.textContent = `₹${totalVal.toLocaleString('en-IN')}`;
+        if (badge) badge.textContent = total;
+
+        let filtered = items;
+        if (categoryFilter !== "all") {
+          filtered = filtered.filter(it => it.category === categoryFilter);
+        }
+        if (statusFilter !== "all") {
+          filtered = filtered.filter(it => it.status === statusFilter);
+        }
+        if (search) {
+          filtered = filtered.filter(it =>
+            (it.title || "").toLowerCase().includes(search) ||
+            (it.category || "").toLowerCase().includes(search) ||
+            (Array.isArray(it.specs) ? it.specs.join(" ") : "").toLowerCase().includes(search) ||
+            String(it.price || "").includes(search)
+          );
+        }
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #9ca3af; padding: 36px 0;"><i class="fa-solid fa-ghost" style="font-size: 1.5rem; margin-bottom: 8px; display: block;"></i>No account listings matching criteria. Create one using the form!</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(it => {
+          const isAvailable = it.status === "available";
+          const isSold = it.status === "sold";
+          const statusClass = isAvailable ? "status-contacted" : (isSold ? "status-archived" : "status-new");
+          const statusLabel = isAvailable ? "Available" : (isSold ? "Sold Out" : "Reserved");
+
+          let badgeIcon = "fa-gamepad";
+          if (it.category === "freefire") badgeIcon = "fa-fire text-rose";
+          else if (it.category === "instagram") badgeIcon = "fa-brands fa-instagram text-purple";
+          else if (it.category === "coc") badgeIcon = "fa-shield-halved text-cyan";
+          else if (it.category === "bgmi") badgeIcon = "fa-crosshairs gold-icon";
+          else if (it.category === "gmail") badgeIcon = "fa-envelope text-cyan";
+
+          const waPreview = `https://wa.me/919691947952?text=Hi%20Garv,%20I%20want%20to%20buy%20the%20${encodeURIComponent(it.title)}%20(Price:%20₹${it.price}).%20Please%20share%20payment%20and%20transfer%20details.`;
+
+          return `
+            <tr>
+              <td>
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); color: #fce08f; font-size: 0.75rem; font-weight: 700;">
+                  <i class="fa-solid ${badgeIcon}"></i> ${escapeHtml(it.badge || it.category.toUpperCase())}
+                </span>
+              </td>
+              <td>
+                <img src="${it.image || 'assets/images/freefire.jpg'}" alt="Preview" class="store-thumb-preview" onerror="this.src='assets/images/setup.jpg'">
+              </td>
+              <td>
+                <div style="font-weight: 700; color: #fff; font-size: 0.92rem; margin-bottom: 4px;">${escapeHtml(it.title)}</div>
+                <div>
+                  ${(it.specs || []).map(s => `<span class="spec-tag-chip"><i class="fa-solid fa-check" style="color: var(--gold-primary);"></i> ${escapeHtml(s)}</span>`).join("")}
+                </div>
+                <div style="font-size: 0.74rem; color: #9ca3af; margin-top: 4px;">
+                  <i class="fa-solid fa-shield-halved" style="color: var(--neon-cyan);"></i> Handover: <em>${escapeHtml(it.loginType || 'Direct Handover')}</em>
+                </div>
+              </td>
+              <td>
+                <span class="price-tag-gold">₹${Number(it.price).toLocaleString('en-IN')}</span>
+              </td>
+              <td>
+                <span class="status-badge ${statusClass}" style="position: static;">
+                  ${statusLabel}
+                </span>
+              </td>
+              <td>
+                <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                  <button class="btn-lead-action" onclick="editStoreItem('${it.id}')" title="Modify ID listing" style="background: rgba(212, 175, 55, 0.15); border-color: rgba(212, 175, 55, 0.4); color: #fce08f;">
+                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                  </button>
+                  <button class="btn-lead-action" onclick="toggleStoreStatus('${it.id}')" title="Toggle Status" style="background: ${isSold ? 'rgba(67, 233, 123, 0.15)' : 'rgba(255, 101, 132, 0.15)'}; border-color: ${isSold ? 'rgba(67, 233, 123, 0.4)' : 'rgba(255, 101, 132, 0.4)'}; color: ${isSold ? 'var(--neon-emerald)' : 'var(--neon-coral)'};">
+                    <i class="fa-solid ${isSold ? 'fa-rotate-left' : 'fa-check'}"></i> ${isSold ? 'Available' : 'Sold'}
+                  </button>
+                  <button class="btn-lead-del" onclick="deleteStoreItem('${it.id}')" title="Delete ID permanently">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                  <a href="${waPreview}" target="_blank" rel="noopener noreferrer" class="btn-lead-action" title="Test WhatsApp Order Link" style="background: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.35); color: #25d366;">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join("");
+      };
+
+      window.handleStoreSearch = function() {
+        renderStoreInventory();
+      };
+
+      window.handleStoreFilterChange = function() {
+        renderStoreInventory();
+      };
+
+      window.handleStoreCategoryChange = function() {
+        const cat = document.getElementById("storeFormCategory").value;
+        const imgSelect = document.getElementById("storeFormImageSelect");
+        if (imgSelect && imgSelect.value !== "custom") {
+          if (cat === "freefire") imgSelect.value = "assets/images/freefire.jpg";
+          else if (cat === "instagram") imgSelect.value = "assets/images/insta1.jpg";
+          else if (cat === "coc") imgSelect.value = "assets/images/coc.jpg";
+          else if (cat === "bgmi") imgSelect.value = "assets/images/bgmi.jpg";
+          else if (cat === "gmail") imgSelect.value = "assets/images/gmail.jpg";
+          else imgSelect.value = "assets/images/setup.jpg";
+        }
+      };
+
+      window.handleStoreImagePresetChange = function() {
+        const val = document.getElementById("storeFormImageSelect").value;
+        const customGroup = document.getElementById("storeFormCustomImgGroup");
+        if (customGroup) {
+          customGroup.style.display = val === "custom" ? "block" : "none";
+        }
+      };
+
+      window.editStoreItem = function(id) {
+        const items = getStoredStoreItems();
+        const it = items.find(item => item.id === id);
+        if (!it) return;
+
+        // Set form to edit mode
+        document.getElementById("storeFormEditId").value = it.id;
+        document.getElementById("storeFormCategory").value = it.category || "bgmi";
+        document.getElementById("storeFormPrice").value = it.price || 0;
+        document.getElementById("storeFormTitle").value = it.title || "";
+        document.getElementById("storeFormSpecs").value = Array.isArray(it.specs) ? it.specs.join(" | ") : (it.specs || "");
+        document.getElementById("storeFormStatus").value = it.status || "available";
+        document.getElementById("storeFormLoginType").value = it.loginType || "";
+        document.getElementById("storeFormDesc").value = it.description || "";
+
+        // Image select
+        const imgSelect = document.getElementById("storeFormImageSelect");
+        const customGroup = document.getElementById("storeFormCustomImgGroup");
+        const customUrlInput = document.getElementById("storeFormCustomUrl");
+
+        const presets = ["assets/images/freefire.jpg", "assets/images/insta1.jpg", "assets/images/coc.jpg", "assets/images/bgmi.jpg", "assets/images/gmail.jpg", "assets/images/setup.jpg"];
+        if (presets.includes(it.image)) {
+          imgSelect.value = it.image;
+          customGroup.style.display = "none";
+        } else {
+          imgSelect.value = "custom";
+          customGroup.style.display = "block";
+          if (customUrlInput) customUrlInput.value = it.image || "";
+        }
+
+        // Update Form UI Header
+        const heading = document.getElementById("storeFormHeading");
+        if (heading) heading.innerHTML = `<i class="fa-solid fa-pen-to-square" style="color: var(--gold-primary);"></i> Modify ID: "${escapeHtml(it.title)}"`;
+
+        const badge = document.getElementById("storeFormBadge");
+        if (badge) {
+          badge.textContent = "Editing Mode";
+          badge.style.background = "rgba(0, 242, 254, 0.2)";
+          badge.style.color = "var(--neon-cyan)";
+        }
+
+        const sub = document.getElementById("storeFormSub");
+        if (sub) sub.textContent = "Saving will update live public store immediately";
+
+        const btnText = document.getElementById("btnStoreSubmitText");
+        if (btnText) btnText.textContent = "Save Changes & Update ID";
+
+        const btnIcon = document.getElementById("btnStoreSubmitIcon");
+        if (btnIcon) btnIcon.className = "fa-solid fa-check";
+
+        const cancelBtn = document.getElementById("btnStoreCancelEdit");
+        if (cancelBtn) cancelBtn.style.display = "inline-flex";
+
+        // Pulse effect on form container
+        const container = document.getElementById("storeFormContainer");
+        if (container) {
+          container.classList.add("editing-pulse");
+          container.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        showToast(`Editing: "${it.title}"`, "info");
+      };
+
+      window.cancelStoreEdit = function() {
+        document.getElementById("storeFormEditId").value = "";
+        document.getElementById("leadStoreForm").reset();
+
+        const customGroup = document.getElementById("storeFormCustomImgGroup");
+        if (customGroup) customGroup.style.display = "none";
+
+        const heading = document.getElementById("storeFormHeading");
+        if (heading) heading.innerHTML = `<i class="fa-solid fa-tags" style="color: var(--gold-primary);"></i> List New ID for Sale`;
+
+        const badge = document.getElementById("storeFormBadge");
+        if (badge) {
+          badge.textContent = "Create Mode";
+          badge.style.background = "rgba(212, 175, 55, 0.2)";
+          badge.style.color = "#fce08f";
+        }
+
+        const sub = document.getElementById("storeFormSub");
+        if (sub) sub.textContent = "Instant publish to live website";
+
+        const btnText = document.getElementById("btnStoreSubmitText");
+        if (btnText) btnText.textContent = "Publish ID to Store";
+
+        const btnIcon = document.getElementById("btnStoreSubmitIcon");
+        if (btnIcon) btnIcon.className = "fa-solid fa-cloud-arrow-up";
+
+        const cancelBtn = document.getElementById("btnStoreCancelEdit");
+        if (cancelBtn) cancelBtn.style.display = "none";
+
+        const container = document.getElementById("storeFormContainer");
+        if (container) container.classList.remove("editing-pulse");
+      };
+
+      window.handleLeadStoreSubmit = function(e) {
+        e.preventDefault();
+
+        const editId = document.getElementById("storeFormEditId").value.trim();
+        const category = document.getElementById("storeFormCategory").value;
+        const price = parseInt(document.getElementById("storeFormPrice").value) || 0;
+        const title = document.getElementById("storeFormTitle").value.trim();
+        const rawSpecs = document.getElementById("storeFormSpecs").value.trim();
+        const status = document.getElementById("storeFormStatus").value;
+        const loginType = document.getElementById("storeFormLoginType").value.trim() || "Direct Handover";
+        const description = document.getElementById("storeFormDesc").value.trim();
+
+        let image = document.getElementById("storeFormImageSelect").value;
+        if (image === "custom") {
+          const customUrl = document.getElementById("storeFormCustomUrl").value.trim();
+          image = customUrl || "assets/images/setup.jpg";
+        }
+
+        let badge = "Gaming ID";
+        let icon = "fa-gamepad";
+        if (category === "freefire") {
+          badge = "Free Fire Max";
+          icon = "fa-fire text-rose";
+        } else if (category === "instagram") {
+          badge = "Instagram Account";
+          icon = "fa-brands fa-instagram text-purple";
+        } else if (category === "coc") {
+          badge = "Clash of Clans";
+          icon = "fa-shield-halved text-cyan";
+        } else if (category === "bgmi") {
+          badge = "BGMI Mobile";
+          icon = "fa-crosshairs gold-icon";
+        } else if (category === "gmail") {
+          badge = "Vintage Gmail";
+          icon = "fa-envelope text-cyan";
+        }
+
+        const specs = rawSpecs.split(/[|,]/).map(s => s.trim()).filter(Boolean);
+
+        const existingItems = getStoredStoreItems();
+
+        if (editId) {
+          // --- MODIFY / EDIT EXISTING ITEM ---
+          const targetIdx = existingItems.findIndex(it => it.id === editId);
+          if (targetIdx !== -1) {
+            existingItems[targetIdx] = {
+              ...existingItems[targetIdx],
+              category,
+              badge,
+              icon,
+              title,
+              specs: specs.length > 0 ? specs : [rawSpecs],
+              price,
+              status,
+              image,
+              loginType,
+              description
+            };
+            saveStoredStoreItems(existingItems);
+            cancelStoreEdit();
+            renderStoreInventory();
+            showToast(`Modified "${title}" successfully!`, "success");
+          }
+        } else {
+          // --- CREATE NEW ITEM ---
+          const newItem = {
+            id: "id_" + Date.now(),
+            category,
+            badge,
+            icon,
+            title,
+            specs: specs.length > 0 ? specs : [rawSpecs],
+            price,
+            status,
+            image,
+            loginType,
+            description
+          };
+          existingItems.unshift(newItem);
+          saveStoredStoreItems(existingItems);
+          cancelStoreEdit();
+          renderStoreInventory();
+          showToast(`Published "${title}" to ID Store!`, "success");
+        }
+      };
+
+      window.toggleStoreStatus = function(id) {
+        const items = getStoredStoreItems();
+        const it = items.find(item => item.id === id);
+        if (!it) return;
+
+        it.status = it.status === "available" ? "sold" : "available";
+        saveStoredStoreItems(items);
+        renderStoreInventory();
+        showToast(`Status updated to "${it.status.toUpperCase()}"!`, "info");
+      };
+
+      window.deleteStoreItem = function(id) {
+        if (confirm("Are you sure you want to permanently delete this ID listing from the store?")) {
+          const deletedIds = JSON.parse(localStorage.getItem("garv_deleted_store_ids") || "[]");
+          if (!deletedIds.includes(id)) {
+            deletedIds.push(id);
+            localStorage.setItem("garv_deleted_store_ids", JSON.stringify(deletedIds));
+          }
+
+          let items = getStoredStoreItems();
+          const target = items.find(it => it.id === id);
+          items = items.filter(it => it.id !== id);
+          saveStoredStoreItems(items);
+
+          if (document.getElementById("storeFormEditId").value === id) {
+            cancelStoreEdit();
+          }
+
+          renderStoreInventory();
+          showToast(`Permanently deleted "${target ? target.title : 'Listing'}"!`, "success");
+        }
+      };
 
       // Reactive event listener for real-time lead updates
       window.addEventListener("fitscalez_lead_added", () => {

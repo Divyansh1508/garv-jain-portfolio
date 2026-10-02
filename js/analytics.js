@@ -165,7 +165,7 @@
       this.recordPageView();
       this.bindFormInterceptors();
       this.bindStoreClickInterceptors();
-      this.ensureSeedDataIfEmpty();
+      this.purgeDemoData();
     },
 
     // Record Page View
@@ -379,238 +379,55 @@
       });
     },
 
-    // Seed realistic sample data if localStorage is empty
-    ensureSeedDataIfEmpty() {
-      const existingLeads = localStorage.getItem(STORAGE_KEYS.LEADS);
-      const existingDevices = localStorage.getItem(STORAGE_KEYS.DEVICES);
-
-      // Only seed if leads or devices are completely absent
-      if (!existingLeads || JSON.parse(existingLeads).length === 0) {
-        const sampleLeads = [
-          {
-            id: "lead-1001",
-            name: "Aryan Sharma",
-            email: "aryan.sharma07@gmail.com",
-            phone: "+91 98260 12345",
-            service: "BGMI Glacier M416 (Max Level)",
-            message: "Hi Garv, I am interested in purchasing the BGMI Glacier M416 ID. Can we do a deal today? Let me know the payment options.",
-            status: "new",
-            timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString(), // 15 mins ago
-            deviceId: "dev-c71b4a2e-5f91-4e12-87da-0192837465aa",
-            city: "Bhopal",
-            country: "India",
-            ip: "103.248.88.94",
-            score: 95
-          },
-          {
-            id: "lead-1002",
-            name: "Priya Verma",
-            email: "priya.verma@outlook.com",
-            phone: "+91 98930 54321",
-            service: "Vintage 2011 Aged Gmail ID",
-            message: "Looking for an authentic aged 2011 Gmail ID for business verification and primary accounts. Ready for immediate checkout.",
-            status: "new",
-            timestamp: new Date(Date.now() - 75 * 60 * 1000).toISOString(), // 1 hour ago
-            deviceId: "dev-f89a21dc-7b12-4c56-9e8f-1234567890bb",
-            city: "Indore",
-            country: "India",
-            ip: "103.212.145.22",
-            score: 90
-          },
-          {
-            id: "lead-1003",
-            name: "Rohan Mehta",
-            email: "rohan.mehta@techcorp.in",
-            phone: "+91 98200 11223",
-            service: "Official Luxury Web Suite",
-            message: "Saw your luxury personal portfolio with 3D WebGL and dark mode. Need a high-tier personal brand website built for my agency.",
-            status: "contacted",
-            timestamp: new Date(Date.now() - 5 * 3600 * 1000).toISOString(), // 5 hours ago
-            deviceId: "dev-e12c34d5-9a8b-4c7d-8e9f-2345678901cc",
-            city: "Mumbai",
-            country: "India",
-            ip: "49.36.120.81",
-            score: 85
-          },
-          {
-            id: "lead-1004",
-            name: "Sneha Patel",
-            email: "sneha.patel@creativehub.com",
-            phone: "+91 97123 45678",
-            service: "Creator Curation & Brand Styling",
-            message: "Loved the photography and Instagram styling @garv__x420. Looking for creative collaboration and aesthetic curation.",
-            status: "contacted",
-            timestamp: new Date(Date.now() - 14 * 3600 * 1000).toISOString(), // 14 hours ago
-            deviceId: "dev-b34d56e7-1c2d-4e5f-6a7b-3456789012dd",
-            city: "Ahmedabad",
-            country: "India",
-            ip: "157.34.201.19",
-            score: 80
-          },
-          {
-            id: "lead-1005",
-            name: "Vikramaditya Singh",
-            email: "vikram.singh99@gmail.com",
-            phone: "+91 98110 99887",
-            service: "Clash of Clans TH16 Max",
-            message: "Deal successfully finalized via WhatsApp. Received credentials smoothly. Thanks a lot brother!",
-            status: "closed",
-            timestamp: new Date(Date.now() - 32 * 3600 * 1000).toISOString(), // 1 day ago
-            deviceId: "dev-a56e78f9-2d3e-4f5a-8b9c-4567890123ee",
-            city: "New Delhi",
-            country: "India",
-            ip: "182.72.60.10",
-            score: 95
-          },
-          {
-            id: "lead-1006",
-            name: "Ananya Das",
-            email: "ananya.das@edu.ac.in",
-            phone: "+91 98300 23456",
-            service: "Academic STEM Prototype Advisory",
-            message: "Inquiring about your Class 9 Science & Tech Fair prototype model. Would like to understand the automation logic used.",
-            status: "new",
-            timestamp: new Date(Date.now() - 48 * 3600 * 1000).toISOString(),
-            deviceId: "dev-d78f90ab-3e4f-5a6b-9c0d-5678901234ff",
-            city: "Kolkata",
-            country: "India",
-            ip: "103.88.22.4",
-            score: 75
+    // Purge any demo or mock seed data
+    purgeDemoData() {
+      try {
+        const rawLeads = localStorage.getItem(STORAGE_KEYS.LEADS);
+        if (rawLeads) {
+          const leads = JSON.parse(rawLeads);
+          const cleanLeads = leads.filter(l => l && l.id && !String(l.id).startsWith("lead-100"));
+          if (cleanLeads.length !== leads.length) {
+            localStorage.setItem(STORAGE_KEYS.LEADS, JSON.stringify(cleanLeads));
           }
-        ];
-        localStorage.setItem(STORAGE_KEYS.LEADS, JSON.stringify(sampleLeads));
-      }
+        }
 
-      if (!existingDevices || Object.keys(JSON.parse(existingDevices)).length === 0) {
-        const sampleDevices = {
-          "dev-c71b4a2e-5f91-4e12-87da-0192837465aa": {
-            deviceId: "dev-c71b4a2e-5f91-4e12-87da-0192837465aa",
-            ip: "103.248.88.94",
-            city: "Bhopal",
-            region: "Madhya Pradesh",
-            country: "India",
-            lat: 23.2599,
-            lon: 77.4126,
-            isp: "Jio Infocomm GigaFiber",
-            os: "Windows 10/11",
-            browser: "Chrome",
-            deviceType: "Desktop",
-            screen: "1920x1080",
-            visits: 7,
-            firstSeen: new Date(Date.now() - 3 * 86400000).toISOString(),
-            lastSeen: new Date(Date.now() - 15 * 60000).toISOString(),
-            pageHistory: [
-              { path: "/index.html#id-store", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 15 * 60000).toISOString() },
-              { path: "/index.html#projects", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 25 * 60000).toISOString() },
-              { path: "/index.html", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 35 * 60000).toISOString() }
-            ]
-          },
-          "dev-f89a21dc-7b12-4c56-9e8f-1234567890bb": {
-            deviceId: "dev-f89a21dc-7b12-4c56-9e8f-1234567890bb",
-            ip: "103.212.145.22",
-            city: "Indore",
-            region: "Madhya Pradesh",
-            country: "India",
-            lat: 22.7196,
-            lon: 75.8577,
-            isp: "Airtel Broadband Highspeed",
-            os: "Android",
-            browser: "Chrome",
-            deviceType: "Mobile",
-            screen: "412x915",
-            visits: 4,
-            firstSeen: new Date(Date.now() - 2 * 86400000).toISOString(),
-            lastSeen: new Date(Date.now() - 75 * 60000).toISOString(),
-            pageHistory: [
-              { path: "/index.html#id-store", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 75 * 60000).toISOString() },
-              { path: "/index.html#contact", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 85 * 60000).toISOString() }
-            ]
-          },
-          "dev-e12c34d5-9a8b-4c7d-8e9f-2345678901cc": {
-            deviceId: "dev-e12c34d5-9a8b-4c7d-8e9f-2345678901cc",
-            ip: "49.36.120.81",
-            city: "Mumbai",
-            region: "Maharashtra",
-            country: "India",
-            lat: 19.0760,
-            lon: 72.8777,
-            isp: "Tata Teleservices Corp",
-            os: "macOS",
-            browser: "Safari",
-            deviceType: "Desktop",
-            screen: "2560x1440",
-            visits: 12,
-            firstSeen: new Date(Date.now() - 7 * 86400000).toISOString(),
-            lastSeen: new Date(Date.now() - 5 * 3600000).toISOString(),
-            pageHistory: [
-              { path: "/index.html#about", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 5 * 3600000).toISOString() },
-              { path: "/index.html#showcase", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 6 * 3600000).toISOString() }
-            ]
-          },
-          "dev-b34d56e7-1c2d-4e5f-6a7b-3456789012dd": {
-            deviceId: "dev-b34d56e7-1c2d-4e5f-6a7b-3456789012dd",
-            ip: "157.34.201.19",
-            city: "Ahmedabad",
-            region: "Gujarat",
-            country: "India",
-            lat: 23.0225,
-            lon: 72.5714,
-            isp: "GTPL Hathway Ltd",
-            os: "iOS",
-            browser: "Safari",
-            deviceType: "Mobile",
-            screen: "390x844",
-            visits: 3,
-            firstSeen: new Date(Date.now() - 1 * 86400000).toISOString(),
-            lastSeen: new Date(Date.now() - 14 * 3600000).toISOString(),
-            pageHistory: [
-              { path: "/index.html#showcase", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 14 * 3600000).toISOString() }
-            ]
-          },
-          "dev-a56e78f9-2d3e-4f5a-8b9c-4567890123ee": {
-            deviceId: "dev-a56e78f9-2d3e-4f5a-8b9c-4567890123ee",
-            ip: "182.72.60.10",
-            city: "New Delhi",
-            region: "Delhi",
-            country: "India",
-            lat: 28.6139,
-            lon: 77.2090,
-            isp: "ACT Fibernet Broadband",
-            os: "Windows 10/11",
-            browser: "Edge",
-            deviceType: "Desktop",
-            screen: "1920x1080",
-            visits: 9,
-            firstSeen: new Date(Date.now() - 5 * 86400000).toISOString(),
-            lastSeen: new Date(Date.now() - 32 * 3600000).toISOString(),
-            pageHistory: [
-              { path: "/index.html#id-store", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 32 * 3600000).toISOString() }
-            ]
-          },
-          "dev-d78f90ab-3e4f-5a6b-9c0d-5678901234ff": {
-            deviceId: "dev-d78f90ab-3e4f-5a6b-9c0d-5678901234ff",
-            ip: "103.88.22.4",
-            city: "Kolkata",
-            region: "West Bengal",
-            country: "India",
-            lat: 22.5726,
-            lon: 88.3639,
-            isp: "Alliance Broadband Services",
-            os: "Android",
-            browser: "Chrome",
-            deviceType: "Tablet",
-            screen: "800x1280",
-            visits: 2,
-            firstSeen: new Date(Date.now() - 2 * 86400000).toISOString(),
-            lastSeen: new Date(Date.now() - 48 * 3600000).toISOString(),
-            pageHistory: [
-              { path: "/index.html#projects", title: "Garv Jain | Official Luxury Portfolio", time: new Date(Date.now() - 48 * 3600000).toISOString() }
-            ]
+        const rawDevices = localStorage.getItem(STORAGE_KEYS.DEVICES);
+        if (rawDevices) {
+          const devices = JSON.parse(rawDevices);
+          const cleanDevices = {};
+          const mockPrefixes = ["dev-c71b4a2e", "dev-f89a21dc", "dev-e12c34d5", "dev-b34d56e7", "dev-a56e78f9", "dev-d78f90ab"];
+          let changed = false;
+          for (const [id, dev] of Object.entries(devices)) {
+            const isMock = mockPrefixes.some(pref => id.startsWith(pref));
+            if (!isMock) {
+              cleanDevices[id] = dev;
+            } else {
+              changed = true;
+            }
           }
-        };
-        localStorage.setItem(STORAGE_KEYS.DEVICES, JSON.stringify(sampleDevices));
+          if (changed) {
+            localStorage.setItem(STORAGE_KEYS.DEVICES, JSON.stringify(cleanDevices));
+          }
+        }
+      } catch (e) {
+        console.warn("Error purging demo data:", e);
       }
     },
+
+    // Clear all tracked logs and reset storage
+    clearAllData() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.LEADS, JSON.stringify([]));
+        localStorage.setItem(STORAGE_KEYS.DEVICES, JSON.stringify({}));
+        localStorage.setItem(STORAGE_KEYS.PAGE_VIEWS, JSON.stringify([]));
+        localStorage.removeItem("garv_visitor_logs");
+      } catch (e) {}
+    },
+
+    // Backwards compatibility alias
+    ensureSeedDataIfEmpty() {
+      this.purgeDemoData();
+    }    },
 
     // Public Getters for Dashboard
     getAllLeads() {
