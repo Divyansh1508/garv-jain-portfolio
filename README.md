@@ -30,12 +30,30 @@ Official personal digital sanctuary, luxury showcase portfolio, and digital gami
 - **Core**: Semantic HTML5, Vanilla CSS3 (Custom Design Tokens), Modern JavaScript (ES6+)
 - **3D Graphics Engine**: Three.js (WebGL Canvas)
 - **Icons & Typography**: Font Awesome 6, Google Fonts (Syne, Plus Jakarta Sans, Outfit, Cinzel, Great Vibes, Playfair Display)
-- **Hosting / Deployment**: Netlify ready (`_redirects`, `netlify.toml`) & GitHub Pages ready
+- **Hosting / Deployment**: Vercel ready (`vercel.json`) & GitHub Pages ready
 
 ---
 
-## 🚀 Local Setup & Preview
+## 🚀 Deployment & Local Setup
 
+### Deploy to Vercel
+
+#### Option 1: Via Vercel Dashboard (Recommended)
+1. Push your changes to GitHub.
+2. Go to [vercel.com](https://vercel.com) and import the repository `Divyansh1508/garv-jain-portfolio`.
+3. Keep default settings (Framework Preset: **Other** / Root Directory: `./`).
+4. Click **Deploy**. Vercel will automatically apply the routes and security headers configured in `vercel.json`.
+
+#### Option 2: Via Vercel CLI
+```bash
+npx vercel
+```
+For production deployment:
+```bash
+npx vercel --prod
+```
+
+### Local Preview
 1. Clone or download the repository:
    ```bash
    git clone https://github.com/Divyansh1508/garv-jain-portfolio.git
