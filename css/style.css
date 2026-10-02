@@ -827,15 +827,15 @@ h1, h2, h3, h4, h5 {
 /* Floating 3D Interactive Gyroscope Diamond Core Widget */
 .hero-floating-3d-core {
   position: absolute;
-  bottom: -35px;
-  right: -45px;
+  bottom: -20px;
+  right: -30px;
   z-index: 10;
-  width: 210px;
+  width: 180px;
   background: rgba(12, 16, 25, 0.92);
   backdrop-filter: blur(25px);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
-  padding: 12px 14px;
+  padding: 10px 12px;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75), 0 0 30px var(--gold-glow);
   transform: translateZ(60px);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
@@ -860,10 +860,10 @@ h1, h2, h3, h4, h5 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
   margin-bottom: 2px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   border-bottom: 1px solid var(--border-glass);
 }
 
@@ -884,8 +884,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .hero-3d-box {
-  width: 175px;
-  height: 165px;
+  width: 150px;
+  height: 135px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2787,6 +2787,20 @@ h1, h2, h3, h4, h5 {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 40px;
+  }
+  .hero-3d-dual-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+  .hero-floating-3d-core {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 24px;
+    width: 210px;
+    transform: translateZ(30px);
   }
   .hero-subtitle {
     justify-content: center;
