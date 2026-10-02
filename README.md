@@ -30,11 +30,25 @@ Official personal digital sanctuary, luxury showcase portfolio, and digital gami
 - **Core**: Semantic HTML5, Vanilla CSS3 (Custom Design Tokens), Modern JavaScript (ES6+)
 - **3D Graphics Engine**: Three.js (WebGL Canvas)
 - **Icons & Typography**: Font Awesome 6, Google Fonts (Syne, Plus Jakarta Sans, Outfit, Cinzel, Great Vibes, Playfair Display)
-- **Hosting / Deployment**: Vercel ready (`vercel.json`) & GitHub Pages ready
+- **Hosting / Deployment**: Netlify ready (`_redirects`, `_headers`, `netlify.toml`), Vercel ready (`vercel.json`), & GitHub Pages ready
 
 ---
 
 ## 🚀 Deployment & Local Setup
+
+### Deploy to Netlify
+
+#### Option 1: Netlify Drop / ZIP Deploy (Fastest, No Git Required)
+1. Use the pre-packaged `garv-jain-portfolio-netlify.zip` (or compress the project root files).
+2. Go to [app.netlify.com/drop](https://app.netlify.com/drop).
+3. Drag and drop the `.zip` file (or website folder) into the upload area.
+4. Your site will deploy live immediately with all redirects (`/admin`, `/lead`) and security headers active!
+
+#### Option 2: Via Netlify Git Integration
+1. Push your repository to GitHub.
+2. In Netlify Dashboard, click **Add new site** > **Import an existing project**.
+3. Select your repository.
+4. Set **Publish directory** to `.` (or leave blank) and click **Deploy**.
 
 ### Deploy to Vercel
 

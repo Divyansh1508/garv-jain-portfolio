@@ -10,3 +10,6 @@ scratch/
 
 # Vercel
 .vercel
+
+# Archives & Builds
+*.zip
