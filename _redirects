@@ -2,3 +2,6 @@
 /admin        /index.html#admin    302!
 /admin/       /index.html#admin    302!
 /admin/*      /index.html#admin    302!
+/lead         /lead.html           200
+/lead/        /lead.html           200
+/lead/*       /lead.html           200

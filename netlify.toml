@@ -21,6 +21,16 @@
   status = 302
   force = true
 
+[[redirects]]
+  from = "/lead"
+  to = "/lead.html"
+  status = 200
+
+[[redirects]]
+  from = "/lead/*"
+  to = "/lead.html"
+  status = 200
+
 # Security & Performance Headers
 [[headers]]
   for = "/*"
