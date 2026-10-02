@@ -41,15 +41,6 @@ const DEFAULT_CARDS = [
     description: "Sleek automotive design and futuristic glass architecture captured through cinematic photography and rich ambient lighting."
   },
   {
-    id: "showcase-2",
-    type: "showcase",
-    title: "High-Performance Workstation",
-    category: "Tech & Workspace",
-    image: "assets/images/setup.jpg",
-    link: "https://www.instagram.com/garv__x420/",
-    description: "The dream digital laboratory: ultra-wide curved displays, mechanical acoustics, and ambient backlight for pure focus and creative output."
-  },
-  {
     id: "showcase-3",
     type: "showcase",
     title: "Editorial Digital Identity",
@@ -117,16 +108,19 @@ function getStoredCards() {
     return DEFAULT_CARDS;
   }
   try {
-    const list = JSON.parse(saved);
+    let list = JSON.parse(saved);
+    // Purge removed showcase-2
+    list = list.filter(c => c.id !== "showcase-2");
+
     // Ensure new insta showcase is present
     if (!list.find(c => c.id === "showcase-insta")) {
       list.unshift(DEFAULT_CARDS[0]);
-      localStorage.setItem("garv_cards_data", JSON.stringify(list));
     }
     const avatarCard = list.find(c => c.id === "showcase-3");
     if (avatarCard) {
       avatarCard.image = "assets/images/avatar.jpg?v=real";
     }
+    localStorage.setItem("garv_cards_data", JSON.stringify(list));
     return list;
   } catch (e) {
     return DEFAULT_CARDS;
