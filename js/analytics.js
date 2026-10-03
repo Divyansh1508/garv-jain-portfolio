@@ -154,6 +154,26 @@
     return Math.min(100, Math.max(20, score));
   }
 
+  // Helper to identify internal admin/lead/dashboard routes so they are never tracked or shown
+  function isAdminOrLeadPath(path, title) {
+    const p = (path || "").toLowerCase();
+    let cur = "";
+    try { cur = (window.location.pathname || "").toLowerCase(); } catch (e) {}
+    const t = (title || (typeof document !== "undefined" ? document.title : "") || "").toLowerCase();
+
+    return (
+      p.indexOf("lead") !== -1 ||
+      p.indexOf("admin") !== -1 ||
+      p.indexOf("dashboard") !== -1 ||
+      cur.indexOf("lead") !== -1 ||
+      cur.indexOf("admin") !== -1 ||
+      cur.indexOf("dashboard") !== -1 ||
+      t.indexOf("lead management") !== -1 ||
+      t.indexOf("control center") !== -1 ||
+      t.indexOf("admin portal") !== -1
+    );
+  }
+
   // Tracker Core Class
   const FitscalezTracker = {
     deviceId: getOrCreateDeviceId(),
@@ -162,7 +182,11 @@
     // Initialize Tracker
     async init() {
       this.geo = await fetchGeoLocation();
-      this.recordPageView();
+      const path = window.location.pathname + window.location.hash;
+      const pageTitle = document.title || "";
+      if (!isAdminOrLeadPath(path, pageTitle)) {
+        this.recordPageView();
+      }
       this.bindFormInterceptors();
       this.bindStoreClickInterceptors();
       this.purgeDemoData();
@@ -174,6 +198,11 @@
         const now = new Date();
         const path = window.location.pathname + window.location.hash;
         const pageTitle = document.title || "Luxury Portfolio & Suite";
+
+        // Never record internal /lead, /admin, or /dashboard views
+        if (isAdminOrLeadPath(path, pageTitle)) {
+          return;
+        }
         const referrer = document.referrer ? new URL(document.referrer).hostname : "Direct / Bookmark";
 
         // Get devices map

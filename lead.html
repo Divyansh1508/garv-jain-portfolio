@@ -2020,6 +2020,20 @@
             }
           }
 
+          // Purge /lead, /admin, and /dashboard visits from page views
+          const rawViews = localStorage.getItem("fitscalez_page_views");
+          if (rawViews) {
+            const views = JSON.parse(rawViews);
+            const cleanViews = views.filter(pv => {
+              const p = (pv.path || "").toLowerCase();
+              const t = (pv.title || "").toLowerCase();
+              return !p.includes("lead") && !p.includes("admin") && !p.includes("dashboard") && !t.includes("lead management") && !t.includes("control center");
+            });
+            if (cleanViews.length !== views.length) {
+              localStorage.setItem("fitscalez_page_views", JSON.stringify(cleanViews));
+            }
+          }
+
           const rawDevices = localStorage.getItem("fitscalez_devices");
           if (rawDevices) {
             const devices = JSON.parse(rawDevices);
@@ -2027,11 +2041,22 @@
             const mockPrefixes = ["dev-c71b4a2e", "dev-f89a21dc", "dev-e12c34d5", "dev-b34d56e7", "dev-a56e78f9", "dev-d78f90ab"];
             let changed = false;
             for (const [id, dev] of Object.entries(devices)) {
-              if (!mockPrefixes.some(pref => id.startsWith(pref))) {
-                cleanDevices[id] = dev;
-              } else {
+              if (mockPrefixes.some(pref => id.startsWith(pref))) {
                 changed = true;
+                continue;
               }
+              if (dev && Array.isArray(dev.pageHistory)) {
+                const prevLen = dev.pageHistory.length;
+                dev.pageHistory = dev.pageHistory.filter(h => {
+                  const p = (h.path || "").toLowerCase();
+                  const t = (h.title || "").toLowerCase();
+                  return !p.includes("lead") && !p.includes("admin") && !p.includes("dashboard") && !t.includes("lead management") && !t.includes("control center");
+                });
+                if (dev.pageHistory.length !== prevLen) {
+                  changed = true;
+                }
+              }
+              cleanDevices[id] = dev;
             }
             if (changed) {
               localStorage.setItem("fitscalez_devices", JSON.stringify(cleanDevices));
@@ -2212,7 +2237,6 @@
             </div>
           `;
         }).join("");
-        }
       };
 
       window.changeLeadStatus = function (id, newStatus) {
@@ -2282,7 +2306,20 @@
           pageViews = JSON.parse(localStorage.getItem("fitscalez_page_views") || "[]");
         } catch (e) {}
 
-        const devList = Object.values(devices);
+        // Exclude all internal admin/lead routes from analytics and logs
+        function isLeadOrAdmin(path, title) {
+          const p = (path || "").toLowerCase();
+          const t = (title || "").toLowerCase();
+          return p.includes("lead") || p.includes("admin") || p.includes("dashboard") || t.includes("lead management") || t.includes("control center");
+        }
+
+        pageViews = pageViews.filter(pv => pv && !isLeadOrAdmin(pv.path, pv.title));
+
+        const devList = Object.values(devices).filter(d => {
+          if (!d.pageHistory || d.pageHistory.length === 0) return true;
+          return d.pageHistory.some(h => !isLeadOrAdmin(h.path, h.title));
+        });
+
         const totalViews = pageViews.length || devList.reduce((acc, d) => acc + (d.visits || 1), 0);
         const uniqueVisitors = devList.length;
 
@@ -2424,6 +2461,7 @@
             </tr>
           `;
         }).join("");
+        }
       };
 
       // 7. Visitor Dossier & Geolocation Modal
